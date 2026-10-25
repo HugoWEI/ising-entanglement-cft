@@ -1,0 +1,158 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,booktabs,graphicx}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\title{Finite-Size Scaling of Entanglement Across a Bond Defect\\
+in the Critical Transverse-Field Ising Chain}
+\author{Hugo Wei}
+\date{Working research note --- October 2026 (preliminary, not peer reviewed)}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We investigate ground-state bipartite entanglement in a finite open
+transverse-field Ising chain at criticality with a tunable central bond.
+The model admits an exact free-fermion representation, allowing entropy
+to be computed from a restricted Majorana covariance matrix rather
+than from the exponentially large spin Hilbert space. We construct a
+reproducible numerical baseline, independently validate the method
+against exact diagonalization for small systems, and estimate the
+coefficient of logarithmic entanglement scaling across defects.
+The continuously varying asymptotic coefficient is a previously
+established result; our ongoing investigation concerns finite-size
+bias, fit-window dependence, and reliable numerical extrapolation.
+This note is a preliminary research reproduction, not a claim of a
+new universal law.
+\end{abstract}
+
+\section{Introduction}
+Entanglement is a probe of the collective ground-state structure of
+many-body quantum systems. At one-dimensional quantum critical points,
+conformal field theory (CFT) constrains its logarithmic scaling
+\cite{CalabreseCardy2004}. A local defect offers a tractable
+perturbation: how much of the critical entanglement survives across
+a bond whose strength varies between zero and the homogeneous limit?
+The critical Ising defect problem is exactly understood in the
+thermodynamic limit \cite{EislerPeschel2010}. Our immediate goal is a
+careful computational reproduction and an assessment of finite-size
+systematic errors.
+
+\section{Model and theoretical background}
+For even chain length $L$ with open boundary conditions, consider
+\begin{equation}
+ H=-\sum_{j=1}^{L-1}J_j\sigma_j^x\sigma_{j+1}^x
+ -h\sum_{j=1}^L\sigma_j^z,\qquad
+ J_j=\begin{cases}tJ,&j=L/2,\\ J,&\text{otherwise}.\end{cases}
+ \label{eq:H}
+\end{equation}
+We set $J=h=1$, the bulk Ising critical point, and use
+$0\leq t\leq1$ for the central bond. The subsystem $A$ comprises
+the first $L/2$ spins; its von Neumann entropy is
+\begin{equation}
+S_A=-\mathrm{Tr}\,\rho_A\ln\rho_A,\qquad
+\rho_A=\mathrm{Tr}_{\bar A}|\Psi_0\rangle\langle\Psi_0|.
+\end{equation}
+For the clean chain ($t=1$), boundary CFT predicts
+\begin{equation}
+S_A=\frac{c}{6}\ln L+b+o(1),\qquad c=\frac12.
+\label{eq:CFT}
+\end{equation}
+The defect-dependent leading logarithmic coefficient can be
+parameterized as $c_{\mathrm{eff}}(t)/6$. It is important not to
+interpret a finite-$L$ fitted coefficient as a changed bulk central
+charge: $c=1/2$ remains the Ising bulk value.
+
+\section{Numerical method}
+The Jordan--Wigner transformation maps Eq.~\eqref{eq:H} to free
+Majorana fermions $\gamma_a$,
+\begin{equation}
+H=\frac{i}{4}\sum_{a,b=1}^{2L}A_{ab}\gamma_a\gamma_b,
+\end{equation}
+where $A$ is real and antisymmetric. In the convention used by the
+code, $A_{2j-1,2j}=2h$ and
+$A_{2j,2j+1}=2J_j$, with opposite antisymmetric entries.
+For a finite chain without zero modes the ground-state covariance is
+\begin{equation}
+\Gamma_{ab}=\frac{i}{2}\langle[\gamma_a,\gamma_b]\rangle,
+\qquad \Gamma=-A(-A^2)^{-1/2}.
+\end{equation}
+Let $\{\pm\nu_k\}_{k=1}^{\ell}$ be eigenvalues of
+$i\Gamma_A$, where $\Gamma_A$ is the $2\ell$-dimensional
+covariance restricted to the first $\ell$ sites. Then
+\begin{equation}
+S_A=\sum_{k=1}^\ell
+\left[-p_k\ln p_k-(1-p_k)\ln(1-p_k)\right],
+\quad p_k=\frac{1+\nu_k}{2},\quad \nu_k\geq0.
+\end{equation}
+The method scales polynomially with $L$. It avoids direct
+diagonalization of the $2^L$-dimensional spin Hamiltonian.
+
+\section{Validation and preliminary results}
+We test antisymmetry of $A$, the pure-state identity
+$\Gamma^2=-I$, vanishing cross-cut entropy when $t=0$, agreement
+with independent exact diagonalization at $L=6$, and the expected
+clean critical coefficient. These checks are implemented in
+\texttt{tests/test\_ising.py}.
+
+A pilot fit over $L=16,24,32,48,64$ uses
+$S(L/2)=\frac{c_{\mathrm{fit}}(t)}6\ln L+b_t$:
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Defect $t$ & $c_{\mathrm{fit}}(t)$ & Interpretation\\
+\midrule
+0 & $0.0000$ & halves disconnected\\
+0.25 & $0.1532$ & finite-size estimate\\
+0.50 & $0.3609$ & finite-size estimate\\
+0.75 & $0.4881$ & finite-size estimate\\
+1.00 & $0.5294$ & compare with $c=0.5$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The excess at $t=1$ shows that short chains and simple
+log-linear fits retain systematic corrections. These numbers
+are \emph{not} estimates with extrapolated uncertainties and
+should not be reported as asymptotic values.
+
+\IfFileExists{../figures/entropy_vs_logL.png}{
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.85\linewidth]{../figures/entropy_vs_logL.png}
+\caption{Finite-size entropy curves generated by
+\texttt{python scripts/run\_experiment.py}.}
+\end{figure}
+}{
+\noindent\fbox{\parbox{.94\linewidth}{Figure pending:
+run \texttt{python scripts/run\_experiment.py} and compile again.}}
+}
+
+\section{Planned extension and limitations}
+The next step is a quantitative comparison with the exact
+defect-dependent expression derived by Eisler and Peschel
+\cite{EislerPeschel2010}. We will vary fit windows, chain lengths,
+and correction-to-scaling ans\"atze, assessing their stability.
+A credible conclusion will require uncertainty analysis and
+verification of the analytical formula's normalization and defect
+parameter convention. Polynomial-time numerics do not by themselves
+establish novelty.
+
+\section{Conclusion}
+The free-Majorana method provides a reproducible, independently
+tested starting point for studying entanglement scaling in a
+critical Ising chain with a single defect. The known qualitative
+defect dependence is readily recovered, but finite-size fitting
+produces systematic bias even in the homogeneous limit.
+Further results will be added only after comparison with exact
+literature and convergence analysis.
+
+\paragraph{Status and reproducibility.}
+This is a preliminary research note, prepared for independent
+study and revision. Source code, tests, and numerical scripts
+are maintained alongside the manuscript.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+\end{document}
