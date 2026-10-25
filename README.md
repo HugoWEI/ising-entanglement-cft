@@ -123,3 +123,25 @@ Run `python scripts/run_phase_revivals.py` after installing dependencies.
 describe phase sensitivity alone as a new discovery. The next challenge is
 to use reflection-phase/time-delay information to predict a specific
 capacity-revival feature and verify it independently.
+
+
+## First-capacity-revival benchmark: an important negative control
+
+We tested whether a **single** capacity-weighted Wigner reflection delay
+predicts the displacement of the first broad modular-capacity revival.
+It approximately describes one original impurity pair, but fails for
+other impurity pairs. That falsifies the **simple one-delay heuristic**
+as a general predictive model; it does **not** rule out coherent sums
+of momentum-resolved reflected/transmitted paths.
+
+- [Research diary, precise peak definition and negative results](docs/first_revival_benchmark.md)
+- [Numerical benchmark script](scripts/benchmark_first_revival.py)
+- [Peak and phase-delay helper functions](src/revival_benchmark.py)
+- [Validation tests](tests/test_revival_benchmark.py)
+
+Run `python scripts/benchmark_first_revival.py` to generate
+`results/first_revival_benchmark.csv` and
+`figures/first_revival_benchmark.png`.
+
+This is exploratory computational physics; no original publication
+result or successful coherent many-body theory is claimed.
