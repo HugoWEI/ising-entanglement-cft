@@ -46,6 +46,9 @@ jobs:
       - name: 5c - Test matched-transmission phase-sensitive defects
         run: python scripts/run_phase_revivals.py
 
+      - name: 5d - Verify scattering-phase wavepacket arrival delays
+        run: python scripts/validate_phase_delay.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -87,4 +90,13 @@ jobs:
             results/phase_revival_pilot.csv
             results/two_site_scattering.csv
             figures/phase_revival_pilot.png
+          if-no-files-found: error
+
+      - name: 12 - Upload phase-delay benchmark data
+        uses: actions/upload-artifact@v7
+        with:
+          name: phase-delay-wavepacket
+          path: |
+            results/wavepacket_phase_delay.csv
+            figures/wavepacket_phase_delay.png
           if-no-files-found: error
