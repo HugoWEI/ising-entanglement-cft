@@ -81,3 +81,24 @@ to `main`. The workflow should run again automatically.
 `paper.pdf` in the source tree. Artifacts are retained temporarily under
 GitHub's retention settings. The manuscript remains a preliminary research
 note and its physical claims still need scientific review.
+
+## New direction: nonequilibrium entropy and capacity
+
+We are now exploring whether a global field quench through a fixed central
+bond defect produces different *dynamical* responses in entanglement entropy
+and capacity (variance of the modular Hamiltonian). This is a literature-
+screened **pilot**, not a validated original finding.
+
+- [Research plan and literature caveat](docs/dynamics_research_plan.md)
+- [Quench simulation](src/dynamics.py)
+- [Independent validation tests](tests/test_dynamics.py)
+- [Reproducible quench experiment](scripts/run_quench.py)
+
+Run `python scripts/run_quench.py` to create
+`results/quench_trajectory.csv` and `figures/quench_dynamics.png`.
+The GitHub Actions workflow also generates these as build artifacts.
+
+Crucial caveat: the 2018 conformal-interface replica-partition-function
+approach may already determine the *leading continuum capacity behavior*.
+Our possible extension is about realistic lattice deviations and quench-
+protocol dependence, subject to further literature checks.
