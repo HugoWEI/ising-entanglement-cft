@@ -54,10 +54,26 @@ Run `python -m pytest -q` and `python scripts/run_quench.py`.
   entropy/capacity at conformal interfaces. Their discussion explicitly
   proposes studying how interfaces filter capacity growth after quenches.
 
-No directly matching published result was identified during this literature
-screening. That **does not establish novelty**. Existing full-Renyi data or
-entanglement-Hamiltonian dynamics may implicitly determine capacity after
-certain quenches. A more detailed citation/derivation check remains necessary.
+**Critical literature qualification (added after examining the full replica method):**
+Wen, Wang & Ryu (2018), arXiv:1711.02126, Sec. II, show that the *replica
+partition functions* for ground-state and several quench geometries map to
+the same interface strip problem, with a time-dependent strip width W(tau).
+Since capacity is the *second derivative* of log Tr(rho_A^n) at n=1, their
+method already strongly constrains (and may implicitly determine) the leading
+capacity dynamics in the universal CFT regime. We must NOT advertise that
+leading continuum relationship as a new discovery.
+
+Our narrower tentative question is how *specific lattice global-field
+quenches* differ from the ideal CFT/replica prediction, especially when
+initial quasiparticle occupations are not perfectly thermal and the defect
+filters momenta differently. Capizzi & Eisler (2023) already observed such
+continuum-vs-lattice differences in *entropy* slopes; we would explore whether
+capacity shows a distinct discrepancy and whether it is predictable.
+
+No directly matching quantitative study of this specific lattice-capacity
+deviation was identified in the searches completed so far. This is NOT
+proof of novelty; examine the full Rényi derivations of the cited works
+before writing claims about original research.
 
 ## Candidate measurement (not yet validated)
 
