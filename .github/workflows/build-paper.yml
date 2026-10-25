@@ -1,0 +1,58 @@
+# This workflow turns LaTeX source into a PDF on GitHub's computer.
+# Read this file from top to bottom to see each step of the build.
+name: Build Ising research paper
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "paper/**"
+      - "src/**"
+      - "scripts/**"
+      - "tests/**"
+      - "requirements.txt"
+      - ".github/workflows/build-paper.yml"
+  workflow_dispatch: # Also allows a manual "Run workflow" button.
+
+permissions:
+  contents: read # We only read the repository; we do not push generated files.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: 1 - Get the repository files
+        uses: actions/checkout@v4
+
+      - name: 2 - Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: 3 - Install the Python requirements
+        run: python -m pip install -r requirements.txt
+
+      - name: 4 - Check the physics code
+        run: python -m pytest -q
+
+      - name: 5 - Generate the figure used in the paper
+        run: python scripts/run_experiment.py
+
+      - name: 6 - Compile the LaTeX paper
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: paper/main.tex
+          work_in_root_file_dir: true
+
+      - name: 7 - Confirm that a nonempty PDF exists
+        run: test -s paper/main.pdf
+
+      - name: 8 - Publish a directly viewable PDF as a build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ising-research-paper
+          path: paper/main.pdf
+          archive: false
+          if-no-files-found: error
