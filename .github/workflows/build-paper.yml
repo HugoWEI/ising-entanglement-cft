@@ -40,6 +40,9 @@ jobs:
       - name: 5 - Generate the figure used in the paper
         run: python scripts/run_experiment.py
 
+      - name: 5b - Generate the exploratory quench trajectories
+        run: python scripts/run_quench.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -54,5 +57,21 @@ jobs:
         with:
           name: ising-research-paper
           path: paper/main.pdf
+          archive: false
+          if-no-files-found: error
+
+      - name: 9 - Upload quench time-series CSV
+        uses: actions/upload-artifact@v7
+        with:
+          name: quench-timeseries-csv
+          path: results/quench_trajectory.csv
+          archive: false
+          if-no-files-found: error
+
+      - name: 10 - Upload exploratory quench figure
+        uses: actions/upload-artifact@v7
+        with:
+          name: quench-figure-png
+          path: figures/quench_dynamics.png
           archive: false
           if-no-files-found: error
