@@ -43,6 +43,9 @@ jobs:
       - name: 5b - Generate the exploratory quench trajectories
         run: python scripts/run_quench.py
 
+      - name: 5c - Test matched-transmission phase-sensitive defects
+        run: python scripts/run_phase_revivals.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -74,4 +77,14 @@ jobs:
           name: quench-figure-png
           path: figures/quench_dynamics.png
           archive: false
+          if-no-files-found: error
+
+      - name: 11 - Upload scattering-phase pilot results
+        uses: actions/upload-artifact@v7
+        with:
+          name: phase-pilot-data
+          path: |
+            results/phase_revival_pilot.csv
+            results/two_site_scattering.csv
+            figures/phase_revival_pilot.png
           if-no-files-found: error
