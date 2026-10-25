@@ -102,3 +102,24 @@ Crucial caveat: the 2018 conformal-interface replica-partition-function
 approach may already determine the *leading continuum capacity behavior*.
 Our possible extension is about realistic lattice deviations and quench-
 protocol dependence, subject to further literature checks.
+
+
+## Phase-sensitive defect pilot (separate tight-binding model)
+
+An exploratory *number-conserving tight-binding* project tests two reflected
+two-site defects with identical transmission probabilities at every
+momentum but different left-reflection phases. With an asymmetric gapped
+staggered initial state their finite-time capacity curves differ; with a
+reflection-symmetric initial state they agree exactly, as they must.
+
+- [Literature audit, results, limitations, and next hypothesis](docs/phase_scattering_literature_audit.md)
+- [Phase-sensitive scattering solver](src/scattering_phase.py)
+- [Automated numerical and symmetry tests](tests/test_scattering_phase.py)
+- [Pilot script (CSV + plots)](scripts/run_phase_revivals.py)
+
+Run `python scripts/run_phase_revivals.py` after installing dependencies.
+
+**Do not confuse this hopping model with the Ising Hamiltonian**, and do not
+describe phase sensitivity alone as a new discovery. The next challenge is
+to use reflection-phase/time-delay information to predict a specific
+capacity-revival feature and verify it independently.
