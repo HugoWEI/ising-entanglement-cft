@@ -80,3 +80,30 @@ Until step 3, we should describe our work as **numerical phase-sensitivity bench
 Run `python -m pytest -q` and `python scripts/run_phase_revivals.py`.
 
 Outputs: `results/two_site_scattering.csv`, `results/phase_revival_pilot.csv`, and `figures/phase_revival_pilot.png`. CI saves these as a named artifact on GitHub Actions.
+
+
+## Independent phase-delay prediction (known scattering theory)
+
+The Wigner reflection delay, for a fixed lead/reference-plane convention,
+is tau_W(k)=d[arg r_L(k)]/dE, with E=-2*cos(k). Our exact two-site
+scattering amplitudes give at k0=1.1:
+
+- Defect (1.2,0.35): tau_W ≈ 0.30737
+- Defect (0.35,1.2): tau_W ≈ 1.21195
+- **Predicted difference** (first minus second) ≈ -0.90458 time units.
+
+A separately simulated narrow single-particle Gaussian wavepacket
+(L=240, initial center at site 70, width 12, momentum k0=1.1;
+measure reflected probability at site 55) peaks at times **63.8**
+and **64.7**, giving observed difference **-0.90** time units.
+The agreement supports the stationary-phase explanation, and is a
+useful benchmark for our numerical scattering conventions.
+
+**This prediction is an established Wigner-delay result, not a new
+scientific discovery.** The important *unperformed* research test is
+whether combining such delays with a coherent multiple-reflection
+model correctly predicts the locations and amplitudes of **modular
+capacity revivals**. Wavepacket delay agreement alone cannot answer that.
+
+Reproduce with `python scripts/validate_phase_delay.py` (outputs a CSV
+and figure in `results/` and `figures/`).
