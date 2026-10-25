@@ -70,7 +70,7 @@ five tests, generate the figure, compile LaTeX, and upload the PDF.
 1. Open the repository's [Actions tab](https://github.com/HugoWEI/ising-entanglement-cft/actions).
 2. Select **Build Ising research paper** in the left sidebar.
 3. Select the newest run. A green check means the build passed; a red cross means you should expand the failing step to read its log.
-4. In the run's **Artifacts** section, open **ising-research-paper** to view or download the generated PDF (GitHub supports unarchived single-file artifacts).
+4. In the run's **Artifacts** section, open **main.pdf** to view or download the generated PDF (GitHub supports unarchived single-file artifacts).
 5. To build again manually, select **Run workflow** in the workflow page (main branch).
 
 To see the automation respond to a change, click the pencil icon on
