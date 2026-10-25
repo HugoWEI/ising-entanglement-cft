@@ -56,3 +56,28 @@ For a central interface defect, the coefficient varies with bond strength. This 
 ## Authorship and transparency
 
 This portfolio is being developed as a learning/research project. Numerical output, literature comparisons, and scientific claims should be independently checked before use in a PhD application. Computational and writing assistance should be acknowledged appropriately where required.
+
+
+## Automatically compile the PDF with GitHub Actions
+
+The workflow is in [`.github/workflows/build-paper.yml`](.github/workflows/build-paper.yml).
+Every push to `main` that changes the LaTeX manuscript or its Python code
+will start a cloud build: check out the code, install dependencies, run
+five tests, generate the figure, compile LaTeX, and upload the PDF.
+
+**Try it:**
+
+1. Open the repository's [Actions tab](https://github.com/HugoWEI/ising-entanglement-cft/actions).
+2. Select **Build Ising research paper** in the left sidebar.
+3. Select the newest run. A green check means the build passed; a red cross means you should expand the failing step to read its log.
+4. In the run's **Artifacts** section, open **ising-research-paper** to view or download the generated PDF (GitHub supports unarchived single-file artifacts).
+5. To build again manually, select **Run workflow** in the workflow page (main branch).
+
+To see the automation respond to a change, click the pencil icon on
+[`paper/main.tex`](paper/main.tex), make a small edit, then **Commit changes**
+to `main`. The workflow should run again automatically.
+
+**Note:** The generated PDF is currently a build artifact, not a committed
+`paper.pdf` in the source tree. Artifacts are retained temporarily under
+GitHub's retention settings. The manuscript remains a preliminary research
+note and its physical claims still need scientific review.
