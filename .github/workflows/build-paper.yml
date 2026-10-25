@@ -49,6 +49,9 @@ jobs:
       - name: 5d - Verify scattering-phase wavepacket arrival delays
         run: python scripts/validate_phase_delay.py
 
+      - name: 5e - Benchmark first broad capacity revivals
+        run: python scripts/benchmark_first_revival.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -99,4 +102,13 @@ jobs:
           path: |
             results/wavepacket_phase_delay.csv
             figures/wavepacket_phase_delay.png
+          if-no-files-found: error
+
+      - name: 13 - Upload first-revival benchmark
+        uses: actions/upload-artifact@v7
+        with:
+          name: first-revival-benchmark
+          path: |
+            results/first_revival_benchmark.csv
+            figures/first_revival_benchmark.png
           if-no-files-found: error
