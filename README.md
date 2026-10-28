@@ -145,3 +145,28 @@ Run `python scripts/benchmark_first_revival.py` to generate
 
 This is exploratory computational physics; no original publication
 result or successful coherent many-body theory is claimed.
+
+## Bound-state spectral audit (new)
+
+The phase-sensitive hopping defects used in our revival pilot have
+eigenmodes **outside the uniform propagation band**. A new controlled
+numerical experiment partitions the Gaussian propagator into band
+states and impurity-bound modes, and measures the interference terms
+in the correlation matrix.
+
+We also compare the physical evolution with an **artificial unitary
+counterfactual** in which bound-state energies are replaced by band-edge
+energies. This is only a sensitivity test: the altered Hamiltonian is
+generally nonlocal, and capacity cannot be additively decomposed into
+bound-state and band-state contributions.
+
+The results show that bound-state phases influence the capacity
+revival trajectory, but do not imply a simple universal time shift.
+
+- [Derivation, numerical results and interpretation](docs/bound_state_diagnostics.md)
+- [Spectral and covariance diagnostics](src/bound_state_diagnostics.py)
+- [Physical weak-bond/no-out-of-band control tests](tests/test_bound_state_diagnostics.py)
+- [Reproduction script](scripts/run_bound_state_diagnostics.py)
+
+After `git pull`, run `python scripts/run_bound_state_diagnostics.py`
+for CSV files and plots. GitHub Actions also uploads these outputs.
