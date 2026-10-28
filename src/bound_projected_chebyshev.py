@@ -12,8 +12,8 @@ potentials, *exactly one* eigenstate E_b>2 above the propagating
 band [-2,2], and no negative bound states.
 
 Let h be the final single-particle Hamiltonian, P_b its exact
-rank-one bound projector (reconstructed from the 2-channel pole
-using only the symmetric reference), P_c=I-P_b. Then
+rank-one bound projector (reconstructed from a clean-chain two-site
+Birman-Schwinger scattering pole without diagonalization), P_c=I-P_b. Then
 
   U(t)F0 =
       exp(-i E_b t) P_b F0
