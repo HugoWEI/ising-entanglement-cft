@@ -81,3 +81,31 @@ def test_bad_input_rejected():
     model=ParityResummedDefect(12,.775)
     with pytest.raises(ValueError):
         model.green(complex(model.e[-1]),.85)
+
+
+@pytest.mark.parametrize("n,w,d",[
+    (12,.775,.02),(24,.775,.1),(48,.775,.85),
+    (48,.775,1.6),(24,.25,.3),(24,-.5,.85)])
+def test_highest_energy_from_parity_pole_matches_direct_eigenvalue(n,w,d):
+    model=ParityResummedDefect(n,w)
+    result=model.largest_eigenenergy(d)
+    h=tight_binding_hamiltonian(n,(w+d/2,w-d/2))
+    actual=np.linalg.eigvalsh(h)[-1]
+    assert result==pytest.approx(actual,abs=1e-10)
+    assert result==pytest.approx(model.largest_eigenenergy(-d),abs=1e-10)
+    assert result>=model.e[-1]
+
+
+def test_highest_energy_even_quadratic_small_delta():
+    model=ParityResummedDefect(48,.775)
+    actual=model.largest_eigenenergy(.02)
+    quadratic=model.top_eigenenergy_quadratic(.02)
+    assert abs(actual-quadratic)<2e-7
+    assert model.largest_eigenenergy(0)==pytest.approx(model.e[-1])
+
+
+def test_top_energy_pole_is_actually_bound_in_original_case():
+    model=ParityResummedDefect(48,.775)
+    root=model.largest_eigenenergy(.85)
+    assert root>2
+    assert root==pytest.approx(2.39874791578603,abs=1e-8)
