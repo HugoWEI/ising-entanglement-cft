@@ -103,6 +103,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_bound_phase_kicks.py
 
+      - name: 5q - Predict strong-defect revivals with bounded Bessel walks and exact pole
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_bound_chebyshev.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -274,4 +279,14 @@ jobs:
             results/bound_phase_kick_revivals.csv
             figures/bound_phase_kick_peak_times.png
             figures/bound_phase_kick_capacity_curves.png
+          if-no-files-found: error
+
+      - name: 25 - Upload error-bounded coherent-walk prediction
+        uses: actions/upload-artifact@v7
+        with:
+          name: certified-bound-pole-chebyshev-walk
+          path: |
+            results/bound_chebyshev_revivals.csv
+            figures/bound_chebyshev_convergence.png
+            figures/bound_chebyshev_capacity.png
           if-no-files-found: error
