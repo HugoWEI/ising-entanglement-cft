@@ -337,3 +337,64 @@ Results:
 
 GitHub Actions uploads the data/figures after the
 normal paper and previous research benchmarks.
+
+
+## 10. Validated numerical results (focused GitHub Actions run)
+
+The reproducible quick-validation workflow completed **successfully**
+with all targeted tests and benchmark stages passing. Run:
+https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40790497155
+
+For preselected maximum-time tolerance 1e-12, with time grid
+delta_t=0.4, each of the EIGHT tested configurations has the
+same operational first broad peak index as independent exact
+diagonalization; all eight also pass the analytical
+**first-broad-grid-index certificate** (in the idealized
+exact-pole/exact-arithmetic model). The bound state's
+positive eigenenergy and vector are obtained from the
+analytic clean-chain 2x2 Birman-Schwinger pole equation,
+**without diagonalizing ANY full-chain Hamiltonian
+for the prediction**.
+
+| L | onsite u,v | walk degree M | predicted peak | exact peak |
+|---:|---|---:|---:|---:|
+| 48 | (1.2,.35) | 227 | 26.4 | 26.4 |
+| 48 | (.35,1.2) | 227 | 27.2 | 27.2 |
+| 64 | (1.2,.35) | 291 | 36.4 | 36.4 |
+| 64 | (.35,1.2) | 291 | 37.2 | 37.2 |
+| 56 | (1.1,.1) | 259 | 30.8 | 30.8 |
+| 56 | (.1,1.1) | 259 | 31.2 | 31.2 |
+| 48 | (1.4,.7) | 227 | 37.2 | 37.2 |
+| 48 | (.7,1.4) | 227 | 37.2 | 37.2 |
+
+The observed revival-window RMSE for these strict
+truncations was around 2e-13–5e-13 capacity units.
+These small measured errors should not be mistaken
+for the conservative mathematical error limits:
+
+| L | degree M | formal **capacity** error upper bound |
+|---:|---:|---:|
+| 48 | 227 | 1.49e-7 |
+| 56 | 259 | 1.41e-7 |
+| 64 | 291 | 1.12e-7 |
+
+The bounds are computed BEFORE any exact defective
+trajectory and protect the selected first-peak GRID
+index under the stated analytic assumptions.
+They do NOT certify floating-point arithmetic or
+continuous-time peak positions between grid samples.
+
+For tolerance 1e-7, the predicted peaks also matched,
+but the conservative capacity bound (order 1e-3–1e-2)
+was not strong enough to certify first-peak identity.
+That is an important distinction between numerical
+agreement and mathematical certification.
+
+**Assessment:** The finite coherent-walk series is
+an accurate, explicitly finite, independently validated
+strong-defect capacity formula with controlled truncation
+and no Hamiltonian diagonalization in the prediction.
+Its order M grows roughly with the propagation distance
+2T, so it is NOT the long-sought handful-of-reflections
+physical asymptotic revival law. The underlying Chebyshev
+propagation and Birman-Schwinger techniques are known.
