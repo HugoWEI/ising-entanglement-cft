@@ -196,6 +196,7 @@ jobs:
           name: parity-channel-resummation
           path: |
             results/parity_resummation_benchmark.csv
+            results/parity_bound_energy_predictions.csv
             figures/parity_resummation_error.png
             figures/parity_channel_dressing.png
           if-no-files-found: error
