@@ -68,6 +68,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_boundary_image_volterra.py
 
+      - name: 5j - Predict capacity reversal contrast from symmetric linear response
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_capacity_asymmetry_response.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -167,4 +172,15 @@ jobs:
             results/boundary_image_volterra_benchmark.csv
             figures/boundary_image_volterra_capacity.png
             figures/boundary_image_propagator_error.png
+          if-no-files-found: error
+
+      - name: 18 - Upload capacity asymmetry response benchmark
+        uses: actions/upload-artifact@v7
+        with:
+          name: capacity-asymmetry-linear-response
+          path: |
+            results/capacity_asymmetry_linear_response.csv
+            results/capacity_asymmetry_example.csv
+            figures/capacity_asymmetry_response.png
+            figures/capacity_asymmetry_error_scaling.png
           if-no-files-found: error
