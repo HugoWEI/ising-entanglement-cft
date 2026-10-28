@@ -359,3 +359,46 @@ simple novel physical peak-timing law.** It generally needs contour
 quadrature and may be computationally heavier than direct
 diagonalization. A short, accurate strong-defect revival rule
 is still an open target.
+
+
+## Bound–continuum coherence: exact two-by-two entanglement-spectrum formula
+
+For any defect with **one** localized single-particle bound mode,
+the full reduced correlation matrix differs from the bound–band
+**dephased Gaussian covariance** by a rank-two operator. The
+matrix determinant lemma expresses the full change in the
+entanglement-spectrum characteristic polynomial through a
+**2x2 determinant**. This is nonperturbative in coherence and
+gives an exact implicit capacity peak condition, once the
+continuum-band covariance is supplied.
+
+In the original reversed defect pair, the smoothed first
+capacity-peak time shifts from 26.4 to 27.4 (L=48), and
+36.4 to 37.0 (L=64). The corresponding peaks of the
+**dephased Gaussian reference** coincide at 27.8 and 37.0
+respectively. This implicates bound-band coherence in that
+specific reversal shift; other defect pairs are negative
+controls and do not all behave this way.
+
+A nonperturbative **block-Krylov hierarchy** approximates the
+rank-two capacity correction. For L=48 a 16-dimensional
+subspace (8 blocks) reproduces the two original peak times
+on our 0.2 time grid; a 2-dimensional truncation is
+UNRELIABLE. The benchmark still gets its continuum
+covariance from exact evolution, so this is a conditional
+entanglement correction rather than a stand-alone predictive
+scattering law.
+
+- [Exact determinant, mathematical peak condition, numerical data,
+  dephasing interpretation, limitations](docs/bound_coherence_rank2_formula.md)
+- [Single-bound-mode covariance and determinant formula](src/bound_coherence_determinant.py)
+- [Nonperturbative compressed rank-two capacity correction](src/bound_coherence_krylov.py)
+- [Independent exact and physicality tests](tests/test_bound_coherence_determinant.py)
+- [Krylov convergence/failure controls](tests/test_bound_coherence_krylov.py)
+- [Reproduce time-series, CSVs and figures](scripts/benchmark_bound_coherence.py)
+
+Run `python scripts/benchmark_bound_coherence.py`.
+
+**Scientific status:** This is a tested application of known
+Gaussian covariance and determinant-lemma mathematics, not
+yet a proven novel simple strong-defect peak law.
