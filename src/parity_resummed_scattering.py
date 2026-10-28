@@ -109,6 +109,64 @@ class ParityResummedDefect:
             raise ValueError("z near a dressed eigenvalue")
         return r0+(x@t@x.T)/denom
 
+
+    def scalar_local_channels(self,z: float):
+        """g_plus(z),g_minus(z) using only symmetric spectral weights."""
+        z=float(z)
+        if np.min(abs(z-self.e))<1e-12:
+            raise ValueError("energy too close to reference eigenvalue")
+        weights=self.channel_eigenbasis**2
+        inverse=1/(z-self.e)
+        return (float(weights[:,0]@inverse),
+                float(weights[:,1]@inverse))
+
+    def largest_eigenenergy(self,delta: float,tol: float=5e-13) -> float:
+        """Highest dressed eigenvalue from scalar parity-channel secular root.
+
+        Unique root of D(E)=1-delta^2*g_plus*g_minus/4 to the right
+        of the largest symmetric eigenvalue, for nonzero delta.
+        This is a *bound* state only if this eigenenergy exceeds 2.
+        No asymmetric Hamiltonian diagonalization is used.
+        """
+        delta=abs(float(delta))
+        if not np.isfinite(delta) or tol<=0:
+            raise ValueError("invalid delta or tolerance")
+        emax=float(self.e[-1])
+        if delta==0:
+            return emax
+        low=emax+1e-10
+        gp,gm=self.scalar_local_channels(low)
+        if 1-.25*delta**2*gp*gm>=0:
+            raise ValueError("asymmetry shift below scalar root resolution")
+        high=emax+max(4.,2*delta+2)
+        for _ in range(70):
+            gp,gm=self.scalar_local_channels(high)
+            if 1-.25*delta**2*gp*gm>0:
+                break
+            high=emax+2*(high-emax)
+        else:
+            raise RuntimeError("failed to bracket largest dressed eigenvalue")
+        for _ in range(100):
+            mid=(low+high)/2
+            if high-low<tol:
+                break
+            gp,gm=self.scalar_local_channels(mid)
+            if 1-.25*delta**2*gp*gm<0:
+                low=mid
+            else:
+                high=mid
+        return float((low+high)/2)
+
+    def top_eigenenergy_quadratic(self,delta: float) -> float:
+        """Leading even-in-delta Rayleigh-Schrodinger energy correction."""
+        delta=float(delta)
+        weights=self.channel_eigenbasis**2
+        top=int(np.argmax(weights[-1]))
+        opposite=1-top
+        coefficient=.25*float(weights[-1,top])*float(
+            np.sum(weights[:-1,opposite]/(self.e[-1]-self.e[:-1])))
+        return float(self.e[-1]+coefficient*delta**2)
+
     def parity_diagnostic(self):
         """Symmetric reference must split into exact reflection sectors."""
         h=tight_binding_hamiltonian(
