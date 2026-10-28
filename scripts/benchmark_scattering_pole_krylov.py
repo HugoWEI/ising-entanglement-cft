@@ -31,7 +31,10 @@ from scattering_pole_krylov_capacity import ScatteringPoleKrylovCapacity
 from scattering_phase import initial_modes,trajectory
 from revival_benchmark import first_broad_capacity_peak
 
-CONFIGURATIONS=((48,.775,.85),(64,.775,.85),(48,1.05,-.7))
+CONFIGURATIONS=((48,.775,.85),(64,.775,.85),(48,1.05,-.7),
+                # Prospective extra test: L=56, onsite pair (1.1,0.1),
+                # selected before scoring its capacity trajectory.
+                (56,.6,1.0))
 DT=.4
 NODES=768
 KRYLOV_BLOCKS=8
