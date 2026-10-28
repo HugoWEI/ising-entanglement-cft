@@ -331,3 +331,83 @@ low-rank matrix-function updates. Our specific scalar trace
 functional f(p)=p(1-p)log²[(1-p)/p] has endpoint singularities
 requiring separate error analysis. The method here should
 NOT be represented as a novel Krylov algorithm.
+
+
+## 9. Stronger pure-state control: vary ONLY the bound-band phase
+
+The mixed Gaussian dephased reference isolates the offdiagonal
+one-body coherences but changes purity/preparation. We can create
+a more direct **pure-state control** at fixed final h:
+
+    U_theta = P_c + exp(i theta) P_b
+            = I + [exp(i theta)-1]P_b,
+    F_theta(0)=U_theta F0.
+
+Since U_theta is unitary and commutes with h, this new initial
+Slater state is PURE, has the same occupied-orbital orthonormality,
+and has unchanged diagonal populations in EVERY eigenmode of h.
+In particular all final-Hamiltonian energy moments
+Tr[G_theta(0) h^m] are identical for all theta.
+
+Only the relative bound–continuum offdiagonal coherence changes.
+Using the same exact vectors x(t),y(t) as above,
+
+    G_A(t;theta)=G_deph(t)
+       + exp(i theta) x(t)y(t)†
+       + exp(-i theta)y(t)x(t)†
+
+    =G_deph(t)+X J_theta X†,
+
+    J_theta=[[0, exp(i theta)],
+             [exp(-i theta),0]].
+
+The exact two-by-two entanglement-spectrum determinant remains
+valid with J -> J_theta. We have **not** changed the post-quench
+Hamiltonian, defect spectrum, transmission, reflection phase,
+or bound-state energy. We changed the initial pure state,
+which is explicitly relevant to the problem.
+
+### First-peak sensitivity to a phase kick
+
+Fixed defect pair (1.2,.35), initial staggered mass 2.5 before
+the optional phase gate, first broad peak as already defined:
+
+| relative phase | L=48 peak time | L=64 peak time |
+|---:|---:|---:|
+| theta=0 | 26.4 | 36.4 |
+| theta=pi/2 | 26.6 | 37.6 |
+| theta=pi | 27.6 | 35.8 |
+| theta=3pi/2 | 28.6 | 35.6 |
+
+Thus a controlled change in **preparation coherence alone** shifts
+the revival by as much as 2.2 time units in the L=48 pilot. The
+response is NOT universal or monotonic in chain length; the
+L=64 response is qualitatively different. Other defect pairs
+are also tested, with smaller shifts in some regimes.
+
+This is strong diagnostic evidence that complete scattering data,
+bound energies and mode occupations are NOT by themselves
+sufficient to determine the finite-time capacity evolution:
+the offdiagonal initial spectral coherences also matter.
+
+This is not a surprising new theorem: quantum dynamics generally
+depends on the full initial state. But we now have a precisely
+controlled, quantitative capacity-revival manifestation of that
+basic fact in the present free-fermion defect model.
+
+### What an experimental phase kick would require
+
+U_theta is a projector-based operation on the localized bound mode;
+although the bound vector is spatially concentrated near the defect,
+the ideal projector is not necessarily strictly local. We do
+not claim an existing platform can implement this operation
+with negligible error. It is a controlled mathematical preparation
+experiment, not a demonstrated quantum-control protocol.
+
+Files:
+- src/bound_coherence_determinant.py (phase_kick parameter)
+- tests/test_bound_coherence_determinant.py
+- scripts/benchmark_bound_phase_kicks.py
+- results/bound_phase_kick_revivals.csv
+- figures/bound_phase_kick_peak_times.png
+- figures/bound_phase_kick_capacity_curves.png
