@@ -205,3 +205,52 @@ Files:
 
 Earlier response reference:
 docs/capacity_asymmetry_linear_response.md
+
+
+## 8. An additional nonperturbative prediction: highest bound-state energy
+
+For E>e_max(h_sym), both parity-channel scalar functions are
+real positive and strictly decreasing:
+
+    g_plus(E) = sum_m |<phi_m|+>|^2/(E-e_m),
+    g_minus(E)= sum_m |<phi_m|->|^2/(E-e_m).
+
+For any nonzero asymmetry delta, the scalar equation
+
+    1 - delta^2*g_plus(E)*g_minus(E)/4 = 0
+
+has exactly one real root above the largest reference eigenvalue,
+because the product decreases continuously from +infinity to 0.
+This root is the largest eigenvalue E_top(delta) of h(delta), and
+is invariant under delta->-delta. It is a localized *out-of-band*
+mode precisely when E_top>2.
+
+The code now predicts E_top by scalar bisection using **only**
+the symmetric-chain spectral weights. Direct diagonalization of
+the asymmetric Hamiltonian is used exclusively for verification.
+
+For L=48, w=.775:
+
+| delta | E_top from parity secular root | exact diagonalization |
+|---:|---:|---:|
+| .02 | 2.338414411416 | 2.338414411416 |
+| .10 | 2.339233281248 | 2.339233281248 |
+| .30 | 2.346039084944 | 2.346039084944 |
+| .85 | 2.398747915786 | 2.398747915786 |
+| 1.60 | 2.542094935267 | 2.542094935267 |
+
+The second-order Rayleigh-Schrodinger estimate is also computed
+from opposite-parity symmetric modes. It is a useful weak-delta
+baseline but is not exact at large delta.
+
+This **is a valid strong-asymmetry spectral prediction** with
+no asymmetric diagonalization, albeit an application of known
+two-channel scattering theory, not a novel theorem.
+
+Crucially, the energy shift alone **does not determine capacity
+revival peak timing or amplitude**: the occupations, extended
+eigenmodes, reflection phases, and nonlinear reduced-state
+spectrum all contribute. The result provides a more reliable
+bound-state input to any future phase-resolved capacity formula.
+
+New output: \`results/parity_bound_energy_predictions.csv\`.
