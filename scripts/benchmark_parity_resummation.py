@@ -77,11 +77,16 @@ def main():
         for w in MEANS:
             model=ParityResummedDefect(n,w)
             for delta in DELTAS:
-                predicted=model.largest_eigenenergy(delta)
+                predicted,projector=model.largest_eigenprojector_from_residue(delta)
                 perturbative=model.top_eigenenergy_quadratic(delta)
                 h=tight_binding_hamiltonian(
                     n,(w+delta/2,w-delta/2))
-                actual=float(np.linalg.eigvalsh(h)[-1])
+                eigenvalues,eigenvectors=np.linalg.eigh(h)
+                actual=float(eigenvalues[-1])
+                exact_projector=np.outer(eigenvectors[:,-1],eigenvectors[:,-1])
+                middle=np.arange(n//2-4,n//2+4)
+                center_weight=float(np.trace(projector[np.ix_(middle,middle)]))
+                projector_error=float(np.linalg.norm(projector-exact_projector))
                 pole_records.append(dict(
                     L=n,mean_potential=w,delta=delta,
                     predicted_top_energy_from_parity=predicted,
@@ -90,7 +95,11 @@ def main():
                     absolute_resummed_energy_error=abs(predicted-actual),
                     quadratic_energy_error=abs(perturbative-actual),
                     outside_propagating_band=bool(actual>2),
+                    bound_mode_central_eight_site_weight=center_weight,
+                    bound_mode_projector_error=projector_error,
                 ))
+                if projector_error>2e-8:
+                    raise AssertionError("pole residue projector failed direct eigensolver")
                 if abs(predicted-actual)>1e-9:
                     raise AssertionError("parity secular pole prediction failed")
     with (ROOT/"results"/"parity_bound_energy_predictions.csv").open("w",newline="") as out:
