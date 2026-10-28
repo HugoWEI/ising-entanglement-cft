@@ -42,6 +42,7 @@ sys.path.insert(0,str(ROOT/"src"))
 from bound_projected_chebyshev import BoundProjectedChebyshev
 from scattering_phase import initial_modes,trajectory
 from revival_benchmark import first_broad_capacity_peak, gaussian_smooth
+from first_peak_certificate import certify_first_broad_grid_peak
 
 CASES=((48,.775,.85),(48,.775,-.85),
        (64,.775,.85),(64,.775,-.85),
@@ -91,6 +92,8 @@ def main():
             maxerror=float(np.max(abs(cap-exact[:,1])))
             certificate,margin=local_index_certificate(
                 t,cap,peak[0],n,result["formal_capacity_error_bound"])
+            full_first_cert=certify_first_broad_grid_peak(
+                t,cap,n,result["formal_capacity_error_bound"])
             row=dict(
                 L=n,mean_potential=w,asymmetry_delta=delta,
                 target_orbital_error=target,
@@ -111,6 +114,8 @@ def main():
                 peak_height_error=abs(exact_peak[1]-peak[1]),
                 certified_same_local_grid_maximum=certificate,
                 local_peak_certificate_margin=margin,
+                certified_same_first_broad_grid_index=full_first_cert["certified"],
+                first_broad_certificate_reason=full_first_cert["reason"],
                 maximum_raw_orbital_isometry_error=
                     result["max_raw_occupied_isometry_error"],
                 maximum_polar_repair_fro=result["max_polar_change_fro"],
@@ -121,7 +126,8 @@ def main():
                   f"peak {peak[0]:.1f} vs exact {exact_peak[0]:.1f},"
                   f" RMSE={rmse:.2e}, analytical cap bound="
                   f"{result['formal_capacity_error_bound']:.2e},"
-                  f" certified_local_index={certificate}")
+                  f" certified_local_index={certificate},"
+                  f" certified_FIRST_index={full_first_cert['certified']}")
             if target==1e-12:
                 if maxerror > result["formal_capacity_error_bound"]+2e-8:
                     raise RuntimeError("measured error exceeds formal analytical bound")
