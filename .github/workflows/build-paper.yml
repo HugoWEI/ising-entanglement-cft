@@ -98,6 +98,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_scattering_pole_krylov.py
 
+      - name: 5p - Test bound-mode pure-state phase control of capacity revivals
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_bound_phase_kicks.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -259,4 +264,14 @@ jobs:
             results/scattering_pole_krylov_peaks.csv
             results/scattering_pole_krylov_timeseries.csv
             figures/scattering_pole_krylov_first_rev.png
+          if-no-files-found: error
+
+      - name: 24 - Upload pure-state bound-phase revival controls
+        uses: actions/upload-artifact@v7
+        with:
+          name: bound-phase-kick-revivals
+          path: |
+            results/bound_phase_kick_revivals.csv
+            figures/bound_phase_kick_peak_times.png
+            figures/bound_phase_kick_capacity_curves.png
           if-no-files-found: error
