@@ -170,3 +170,27 @@ revival trajectory, but do not imply a simple universal time shift.
 
 After `git pull`, run `python scripts/run_bound_state_diagnostics.py`
 for CSV files and plots. GitHub Actions also uploads these outputs.
+
+
+## Coherent scattering from a 2×2 defect T-matrix
+
+We can now derive the exact finite-chain scattering correction from a
+**two-by-two** T-matrix rather than diagonalizing the defective chain.
+Its secular determinant predicts bound-state energies and localized
+eigenvectors. This is a standard, validated scattering-theory
+reformulation—not yet a theory of the capacity revival peaks.
+
+- [Mathematical derivation and scientific limitations](docs/coherent_scattering_tmatrix.md)
+- [Analytic clean-chain Green function and 2×2 defect T-matrix](src/defect_tmatrix.py)
+- [Independent dense-matrix, bound-pole and multiple-scattering tests](tests/test_defect_tmatrix.py)
+- [Pole and series-convergence experiment](scripts/run_tmatrix_experiment.py)
+
+Run `python scripts/run_tmatrix_experiment.py` to generate
+`results/tmatrix_bound_poles.csv`,
+`results/tmatrix_scattering_convergence.csv`, and
+`figures/tmatrix_scattering_poles.png`.
+
+A short multiple-scattering series works away from the bound pole but
+converges poorly near it. The full 2×2 resummation includes both
+coherent reflection and bound-state physics, preparing the next
+time-domain approximation.
