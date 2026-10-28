@@ -83,6 +83,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_capacity_peak_response.py
 
+      - name: 5m - Validate strong-defect contour capacity formula
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_parity_contour_capacity.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -214,4 +219,13 @@ jobs:
             results/capacity_peak_response_benchmark.csv
             figures/capacity_peak_shift_prediction.png
             figures/capacity_peak_height_prediction.png
+          if-no-files-found: error
+
+      - name: 21 - Upload strong-defect contour capacity benchmark
+        uses: actions/upload-artifact@v7
+        with:
+          name: nonperturbative-parity-contour-capacity
+          path: |
+            results/parity_contour_capacity_benchmark.csv
+            figures/parity_contour_capacity_strong_defect.png
           if-no-files-found: error
