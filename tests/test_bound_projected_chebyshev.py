@@ -126,4 +126,4 @@ def test_bad_parameters_and_fft_alias_guard():
     with pytest.raises(ValueError):
         model.trajectory([-1.])
     with pytest.raises(ValueError):
-        model.trajectory([4.],degree=30,fft_points=64)
+        model.trajectory([4.],degree=30,fft_points=32)
