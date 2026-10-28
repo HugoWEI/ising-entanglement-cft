@@ -58,6 +58,11 @@ jobs:
       - name: 5g - Validate two-site scattering resummation and bound poles
         run: python scripts/run_tmatrix_experiment.py
 
+      - name: 5h - Benchmark unitary rank-two time propagators
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_reduced_time_propagators.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -137,4 +142,14 @@ jobs:
             results/tmatrix_bound_poles.csv
             results/tmatrix_scattering_convergence.csv
             figures/tmatrix_scattering_poles.png
+          if-no-files-found: error
+
+      - name: 16 - Upload time-domain numerical benchmark
+        uses: actions/upload-artifact@v7
+        with:
+          name: rank-two-time-domain-benchmark
+          path: |
+            results/reduced_time_propagator_benchmark.csv
+            figures/reduced_time_propagator_comparison.png
+            figures/reduced_time_step_convergence.png
           if-no-files-found: error
