@@ -333,3 +333,29 @@ not yet an economical explicit first-revival prediction.
 Run `python scripts/benchmark_capacity_peak_response.py`
 after `git pull origin main`. The Actions pipeline also
 uploads the CSV and figures.
+
+
+## Nonperturbative, exact-form capacity via parity scattering contour
+
+Beyond the **weak-defect peak shift formula**, we can also compute
+the full capacity for arbitrarily strong two-site defect asymmetry
+using an exact complex-energy contour integral of the resummed
+parity-channel T-matrix. This only diagonalizes the symmetric
+reference Hamiltonian, while the asymmetric eigen-decomposition
+is used independently for validation.
+
+The contour method reproduces the strong-asymmetry capacity
+curves and first-broad-maximum locations to numerical accuracy.
+It checks state orthonormality without silently repairing
+large contour quadrature errors.
+
+- [Full contour, Gaussian determinant and peak derivation](docs/capacity_peak_formula.md)
+- [All-asymmetry contour capacity code](src/parity_contour_capacity.py)
+- [Independent strong-defect and symmetry tests](tests/test_parity_contour_capacity.py)
+- [Reproducible strong-defect benchmark](scripts/benchmark_parity_contour_capacity.py)
+
+**This is a known exact spectral/Gaussian representation, not a
+simple novel physical peak-timing law.** It generally needs contour
+quadrature and may be computationally heavier than direct
+diagonalization. A short, accurate strong-defect revival rule
+is still an open target.
