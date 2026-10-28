@@ -63,11 +63,14 @@ class SingleBoundCoherence:
         self.bound_weight=float(np.vdot(self.bound_overlap,
                                          self.bound_overlap).real)
 
-    def components(self,time):
+    def components(self,time,phase_kick=0.0):
         """Exact covariance and two-column update, without modification."""
         time=float(time)
         if time<0:
             raise ValueError("time must be nonnegative")
+        theta=float(phase_kick)
+        if not np.isfinite(theta):
+            raise ValueError("phase_kick must be finite")
         n=self.length//2
         extended=self.extended_modes[:n,:]@(
             np.exp(-1j*self.extended_energies*time)[:,None]*
@@ -76,10 +79,11 @@ class SingleBoundCoherence:
         y=extended@self.bound_overlap.conj()
         g_band=extended@extended.conj().T
         g_deph=g_band+self.bound_weight*np.outer(x,x.conj())
-        cross=np.outer(x,y.conj())+np.outer(y,x.conj())
-        g_full=g_deph+cross
         X=np.column_stack([x,y])
-        J=np.array([[0.,1.],[1.,0.]])
+        J=np.array([[0.,np.exp(1j*theta)],
+                    [np.exp(-1j*theta),0.]],dtype=complex)
+        cross=X@J@X.conj().T
+        g_full=g_deph+cross
         return {
             "full":g_full,
             "dephased":g_deph,
@@ -89,9 +93,9 @@ class SingleBoundCoherence:
             "J":J,
         }
 
-    def capacity_at(self,time):
+    def capacity_at(self,time,phase_kick=0.0):
         """Full, dephased-reference, band-only capacities, plus controls."""
-        pieces=self.components(time)
+        pieces=self.components(time,phase_kick)
         for name in ("full","dephased","band_only"):
             eig=np.linalg.eigvalsh(pieces[name])
             if eig.min() < -2e-9 or eig.max()>1+2e-9:
@@ -102,24 +106,24 @@ class SingleBoundCoherence:
         return np.array([full,deph,band,
                          np.linalg.norm(pieces["cross"],"fro")])
 
-    def trajectory(self,times):
+    def trajectory(self,times,phase_kick=0.0):
         times=np.asarray(times,dtype=float)
         if times.ndim!=1 or np.any(times<0):
             raise ValueError("times must be a 1d nonnegative array")
-        return np.array([self.capacity_at(t) for t in times]).reshape(-1,4)
+        return np.array([self.capacity_at(t,phase_kick) for t in times]).reshape(-1,4)
 
-    def entanglement_determinant_ratio(self,time,lam):
+    def entanglement_determinant_ratio(self,time,lam,phase_kick=0.0):
         """Two-by-two determinant ratio, without forming full covariance."""
-        pieces=self.components(time)
+        pieces=self.components(time,phase_kick)
         lam=complex(lam)
         n=self.length//2
         Q=np.linalg.solve(lam*np.eye(n)-pieces["dephased"],pieces["X"])
         return np.linalg.det(
             np.eye(2)-pieces["J"]@pieces["X"].conj().T@Q)
 
-    def direct_determinant_ratio(self,time,lam):
+    def direct_determinant_ratio(self,time,lam,phase_kick=0.0):
         """Independent full covariance determinant, for validation only."""
-        pieces=self.components(time)
+        pieces=self.components(time,phase_kick)
         lam=complex(lam)
         n=self.length//2
         return (np.linalg.det(lam*np.eye(n)-pieces["full"])/
