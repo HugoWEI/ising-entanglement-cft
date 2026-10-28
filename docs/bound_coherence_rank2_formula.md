@@ -320,3 +320,14 @@ Files:
 - Our finite-chain, capacity-specific numerical comparison
   requires a separate originality audit; no peer-reviewed or
   independently established novel physical result is claimed.
+
+
+### Numerical-analysis prior art for the Krylov approximation
+
+Beckermann, Kressner and Schweitzer, *Low-Rank Updates of Matrix
+Functions*, SIAM J. Matrix Anal. Appl. 39 (2018),
+arXiv:1707.03045, already develop Krylov approximations for
+low-rank matrix-function updates. Our specific scalar trace
+functional f(p)=p(1-p)log²[(1-p)/p] has endpoint singularities
+requiring separate error analysis. The method here should
+NOT be represented as a novel Krylov algorithm.
