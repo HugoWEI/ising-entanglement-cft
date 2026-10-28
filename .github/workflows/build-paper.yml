@@ -52,6 +52,9 @@ jobs:
       - name: 5e - Benchmark first broad capacity revivals
         run: python scripts/benchmark_first_revival.py
 
+      - name: 5f - Bound-state spectral mechanism audit
+        run: python scripts/run_bound_state_diagnostics.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -111,4 +114,14 @@ jobs:
           path: |
             results/first_revival_benchmark.csv
             figures/first_revival_benchmark.png
+          if-no-files-found: error
+
+      - name: 14 - Upload bound-state audit
+        uses: actions/upload-artifact@v7
+        with:
+          name: bound-state-spectral-audit
+          path: |
+            results/bound_state_spectral_summary.csv
+            results/bound_state_trajectories.csv
+            figures/bound_state_phase_ablation.png
           if-no-files-found: error
