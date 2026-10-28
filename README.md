@@ -501,3 +501,32 @@ peak timing law.
 - [Multi-defect peak and convergence benchmark](scripts/benchmark_bound_chebyshev.py)
 
 Run `python scripts/benchmark_bound_chebyshev.py` after pulling.
+
+
+### Verified first-peak grid certificates
+
+The focused workflow
+[finite-walk validation](https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40790497155)
+passed all tests and validated eight strong-defect configurations.
+At the a-priori truncation tolerance 1e-12, all eight predicted
+**first broad capacity-peak times match exact time-grid results**
+and pass a conditional mathematical certificate that the same
+first qualifying peak index is preserved under the uniform
+truncation-error bound.
+
+The formal (conservative) capacity error bounds are about
+1.1–1.5e-7; measured revival-window RMSE is about 1e-13.
+The guarantee assumes exact pole and arithmetic and applies
+to the selected 0.4-time-unit grid, not continuous-time peaks.
+
+The bound-state pole is now computed from a 2x2 clean-chain
+**Birman–Schwinger equation**, so the predictor needs no
+full-chain Hamiltonian eigendecomposition (not even the
+symmetric-reference one).
+
+- [Full derivation, formal error bounds and eight-case results](docs/error_controlled_revival_walks.md)
+- [Mathematically conditional first broad grid-peak certificate](src/first_peak_certificate.py)
+- [Focused rapid validation workflow](.github/workflows/revival-quick-check.yml)
+
+These are known spectral and Chebyshev numerical techniques applied
+to our capacity problem, not yet a novel few-path revival law.
