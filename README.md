@@ -434,3 +434,31 @@ Run `python scripts/benchmark_scattering_pole_krylov.py`.
 computed by an expensive near-exact scattering contour. This
 is a rigorous nonperturbative *computational formula*, not yet
 the compact, original analytical first-revival law we seek.
+
+
+## Pure-state phase control: same defect, different revivals
+
+We additionally tested whether the first capacity revival depends
+on the initial coherence between the localized bound mode and
+propagating modes.
+
+A pure-state unitary `U_theta=I+(exp(i theta)-1)P_bound`
+changes ONLY their relative phase. It preserves the Hamiltonian,
+all scattering amplitudes, bound-state energy, and all modal
+occupations and energy moments. Nevertheless, for L=48 and
+potentials (1.2,.35), the first broad capacity peak shifts
+among 26.4, 26.6, 27.6, and 28.6 as theta goes through
+0, pi/2, pi, and 3pi/2.
+
+The exact two-by-two entanglement-spectrum determinant
+generalizes by replacing the coherence matrix
+`J=[[0,1],[1,0]]` with
+`J_theta=[[0,e^(i theta)],[e^(-i theta),0]]`.
+This is a *mathematical pure-state preparation control*;
+it does not imply a real experimental phase gate exists.
+
+- [Mathematical derivation, 48/64-site results and limitations](docs/bound_coherence_rank2_formula.md)
+- [Pure phase-kick revival benchmark](scripts/benchmark_bound_phase_kicks.py)
+- [Independent Gaussian/energy-preservation tests](tests/test_bound_coherence_determinant.py)
+
+Run `python scripts/benchmark_bound_phase_kicks.py` after pulling.
