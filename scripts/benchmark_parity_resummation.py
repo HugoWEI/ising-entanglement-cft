@@ -72,6 +72,32 @@ def main():
         writer.writeheader()
         writer.writerows(records)
 
+    pole_records=[]
+    for n in LENGTHS:
+        for w in MEANS:
+            model=ParityResummedDefect(n,w)
+            for delta in DELTAS:
+                predicted=model.largest_eigenenergy(delta)
+                perturbative=model.top_eigenenergy_quadratic(delta)
+                h=tight_binding_hamiltonian(
+                    n,(w+delta/2,w-delta/2))
+                actual=float(np.linalg.eigvalsh(h)[-1])
+                pole_records.append(dict(
+                    L=n,mean_potential=w,delta=delta,
+                    predicted_top_energy_from_parity=predicted,
+                    exact_top_energy_validation=actual,
+                    quadratic_weak_asymmetry_prediction=perturbative,
+                    absolute_resummed_energy_error=abs(predicted-actual),
+                    quadratic_energy_error=abs(perturbative-actual),
+                    outside_propagating_band=bool(actual>2),
+                ))
+                if abs(predicted-actual)>1e-9:
+                    raise AssertionError("parity secular pole prediction failed")
+    with (ROOT/"results"/"parity_bound_energy_predictions.csv").open("w",newline="") as out:
+        writer=csv.DictWriter(out,fieldnames=list(pole_records[0].keys()))
+        writer.writeheader()
+        writer.writerows(pole_records)
+
     fig,ax=plt.subplots(figsize=(8,4.8))
     for z in ENERGIES:
         sub=[x for x in records if x["L"]==24 and x["mean_potential"]==.775
