@@ -194,3 +194,25 @@ A short multiple-scattering series works away from the bound pole but
 converges poorly near it. The full 2×2 resummation includes both
 coherent reflection and bound-state physics, preparing the next
 time-domain approximation.
+
+
+## New time-domain milestone: unitary reduced dynamics
+
+Two **unitary, second-order numerical time integrators** now evolve the
+finite hopping-chain Gaussian state without diagonalizing the defective
+Hamiltonian: a two-site Woodbury/Cayley step and a clean-sine/onsite-kick
+Strang splitting step. The latter treats clean propagation exactly and
+was substantially more accurate for capacity revivals at matched steps.
+
+- [Full derivations, accuracy results and limitations](docs/unitary_time_domain_milestone.md)
+- [Rank-two unitary Cayley solver](src/rank2_cayley.py)
+- [Exact-clean/defect-kick Strang solver](src/clean_defect_strang.py)
+- [Independent validation tests](tests/test_reduced_time_propagators.py)
+- [Capacity-revival numerical benchmark](scripts/benchmark_reduced_time_propagators.py)
+
+Run `python scripts/benchmark_reduced_time_propagators.py`.
+
+**Important:** these are numerical solvers of the original Hamiltonian.
+Their accuracy is NOT evidence for an original analytical prediction
+of capacity revival timing or amplitude. Our open task remains deriving
+and validating a genuinely reduced coherent scattering model.
