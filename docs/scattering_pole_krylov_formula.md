@@ -153,3 +153,18 @@ capacity peaks without any exact capacity input.
 This step is essential before claiming the originally
 requested compact physically predictive strong-defect
 revival-time law has been found.
+
+
+### Additional prospectively fixed test
+
+After selecting the eight-block model from the exploratory 48/64
+benchmarks, we added a distinct 56-site chain with mean
+potential w=.6 and asymmetry delta=1.0, i.e. onsite potentials
+(1.1,.1) and their reversal, **before computing their capacity
+prediction errors**. The post-quench Hamiltonian has one
+out-of-band state at about +2.30009465, verified as a
+model-class eligibility condition only.
+
+The fixed approximation settings (m=8, contour nodes 768,
+observation dt=.4) are unchanged. Its accuracy or failure must
+be reported, not used for retuning m.
