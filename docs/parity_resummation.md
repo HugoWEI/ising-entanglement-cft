@@ -254,3 +254,51 @@ spectrum all contribute. The result provides a more reliable
 bound-state input to any future phase-resolved capacity formula.
 
 New output: \`results/parity_bound_energy_predictions.csv\`.
+
+
+## 9. Bound-state PROJECTOR from the pole residue
+
+The same scalar resummation gives not just the energy but the exact
+rank-one projector on the highest eigenstate, using the residue of
+the *full* parity-resummed Green function.
+
+Write the parity-channel T matrix as T=N(z)/D(z), with
+
+    N(z)=[[delta^2*g_minus(z)/4, delta/2],
+          [delta/2,delta^2*g_plus(z)/4]].
+
+At the simple dressed pole E_b where D(E_b)=0 and E_b is above
+the entire reference spectrum, define
+
+    X(E_b)=R0(E_b) [ |+>, |-> ].
+
+The spectral projector is EXACTLY
+
+    P_b = Res_{z=E_b} R_delta(z)
+        = X(E_b) N(E_b) X(E_b)^T / D'(E_b),
+
+    D'(E)=-delta^2/4*(g_plus'(E)*g_minus(E)
+                      +g_plus(E)*g_minus'(E)),
+
+    g_±'(E)=-sum_m |<phi_m|±>|^2/(E-e_m)^2.
+
+This is an ordinary resolvent spectral residue identity; it is not
+an independently original physical result.
+
+For L=48, w=.775, delta=.85, the projector from this formula
+matches direct diagonalization to Frobenius error about 3e-15.
+It is rank one, idempotent, has trace one and has **99.3066%**
+of its probability on the eight central lattice sites.
+
+Consequently, the time evolution contains the exactly predicted
+coherent localized contribution
+
+    U_bound(t)=exp(-i E_b t) P_b.
+
+For the original pair E_b=2.398747915786..., and the projector
+requires no diagonalization of the asymmetric Hamiltonian.
+
+But a capacity-revival prediction still also needs the propagating
+part U_band(t), its interference with U_bound(t), and the initial
+occupied-orbital correlation matrix. The scalar pole alone cannot
+predict the time of a nonlinear capacity peak.
