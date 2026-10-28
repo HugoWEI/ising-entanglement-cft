@@ -109,3 +109,35 @@ def test_top_energy_pole_is_actually_bound_in_original_case():
     root=model.largest_eigenenergy(.85)
     assert root>2
     assert root==pytest.approx(2.39874791578603,abs=1e-8)
+
+
+@pytest.mark.parametrize("n,w,d",[
+    (12,.775,.3),(24,.775,.85),(48,.775,.85),
+    (24,-.5,.85),(48,.25,1.6)])
+def test_top_pole_residue_reconstructs_exact_eigenprojector(n,w,d):
+    model=ParityResummedDefect(n,w)
+    energy,prediction=model.largest_eigenprojector_from_residue(d)
+    h=tight_binding_hamiltonian(n,(w+d/2,w-d/2))
+    e,vecs=np.linalg.eigh(h)
+    reference=np.outer(vecs[:,-1],vecs[:,-1])
+    assert abs(energy-e[-1])<2e-10
+    assert np.linalg.norm(prediction-reference)<2e-9
+    assert np.linalg.norm(prediction@prediction-prediction)<2e-9
+    assert abs(np.trace(prediction)-1)<2e-9
+    assert np.linalg.norm(h@prediction-energy*prediction)<3e-9
+
+
+def test_original_bound_residue_localizes_to_central_sites():
+    model=ParityResummedDefect(48,.775)
+    energy,projector=model.largest_eigenprojector_from_residue(.85)
+    center=np.arange(48//2-4,48//2+4)
+    localization=np.trace(projector[np.ix_(center,center)])
+    assert energy>2
+    assert abs(localization-.9930661718984761)<1e-8
+
+
+def test_residue_projector_reflects_under_asymmetry_reversal():
+    model=ParityResummedDefect(24,.775)
+    _,positive=model.largest_eigenprojector_from_residue(.85)
+    _,negative=model.largest_eigenprojector_from_residue(-.85)
+    assert np.allclose(positive[::-1,::-1],negative,atol=1e-10)
