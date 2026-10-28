@@ -1,0 +1,46 @@
+name: Finite-walk revival quick validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/bound_projected_chebyshev.py'
+      - 'src/first_peak_certificate.py'
+      - 'src/defect_tmatrix.py'
+      - 'scripts/benchmark_bound_chebyshev.py'
+      - 'tests/test_bound_projected_chebyshev.py'
+      - 'tests/test_first_peak_certificate.py'
+      - '.github/workflows/revival-quick-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  rigorous-walk-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Check pole-exact walk and first-peak certificate tests
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: python -m pytest -q tests/test_bound_projected_chebyshev.py tests/test_first_peak_certificate.py
+      - name: Benchmark all predefined defect cases
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: python scripts/benchmark_bound_chebyshev.py
+      - name: Publish benchmark data and figures
+        uses: actions/upload-artifact@v4
+        with:
+          name: pole-exact-walk-certification
+          path: |
+            results/bound_chebyshev_revivals.csv
+            figures/bound_chebyshev_convergence.png
+            figures/bound_chebyshev_capacity.png
+          if-no-files-found: error
