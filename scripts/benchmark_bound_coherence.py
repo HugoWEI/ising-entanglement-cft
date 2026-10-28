@@ -60,6 +60,7 @@ def main():
             for p in ((u,v),(v,u)):
                 model=SingleBoundCoherence(n,p,initial)
                 trajectory=model.trajectory(times)
+                cached_pieces=[model.components(tt) for tt in times]
                 full,ref=trajectory[:,0],trajectory[:,1]
                 full_peak=first_broad_capacity_peak(times,full,n)
                 deph_peak=first_broad_capacity_peak(times,ref,n)
@@ -85,7 +86,7 @@ def main():
                             predict_capacity_from_dephased(
                                 pieces["dephased"],pieces["X"],
                                 pieces["J"],num_steps=steps)
-                            for pieces in (model.components(t) for t in times)
+                            for pieces in cached_pieces
                         ]
                         approx=np.asarray([a for a,_ in predictions])
                         max_dim=max(dim for _,dim in predictions)
