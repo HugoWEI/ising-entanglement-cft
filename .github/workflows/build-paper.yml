@@ -93,6 +93,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_bound_coherence.py
 
+      - name: 5o - Predict strong-defect capacity from symmetric scattering and pole Krylov
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_scattering_pole_krylov.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -244,4 +249,14 @@ jobs:
             results/bound_coherence_krylov.csv
             figures/bound_coherence_reversal.png
             figures/bound_coherence_krylov_convergence.png
+          if-no-files-found: error
+
+      - name: 23 - Upload scattering-pole Krylov strong-defect predictions
+        uses: actions/upload-artifact@v7
+        with:
+          name: scattering-pole-krylov-capacity
+          path: |
+            results/scattering_pole_krylov_peaks.csv
+            results/scattering_pole_krylov_timeseries.csv
+            figures/scattering_pole_krylov_first_rev.png
           if-no-files-found: error
