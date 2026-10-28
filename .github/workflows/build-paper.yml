@@ -55,6 +55,9 @@ jobs:
       - name: 5f - Bound-state spectral mechanism audit
         run: python scripts/run_bound_state_diagnostics.py
 
+      - name: 5g - Validate two-site scattering resummation and bound poles
+        run: python scripts/run_tmatrix_experiment.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -124,4 +127,14 @@ jobs:
             results/bound_state_spectral_summary.csv
             results/bound_state_trajectories.csv
             figures/bound_state_phase_ablation.png
+          if-no-files-found: error
+
+      - name: 15 - Upload T-matrix scattering diagnostics
+        uses: actions/upload-artifact@v7
+        with:
+          name: coherent-scattering-tmatrix
+          path: |
+            results/tmatrix_bound_poles.csv
+            results/tmatrix_scattering_convergence.csv
+            figures/tmatrix_scattering_poles.png
           if-no-files-found: error
