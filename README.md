@@ -241,3 +241,30 @@ not a new compact analytical revival formula.
 
 Run `python scripts/benchmark_boundary_image_volterra.py` for the
 CSV and two figures. GitHub Actions publishes these as artifacts.
+
+
+## Analytic capacity response to reversed weak defects
+
+A controlled predictive calculation now evaluates the first-order
+difference in modular capacity between two reversed onsite defects,
+**using only the symmetric reference Hamiltonian**, and compares it
+with the exact asymmetric evolutions afterward. This is a standard
+Duhamel/Kubo linear-response application, not new theoretical physics.
+
+For final potentials (w+delta/2,w-delta/2) and their reverse, the
+antisymmetric capacity difference is predicted as
+`Delta C_A(t) = 2 delta chi_C(t) + O(delta^3)`, away from
+entanglement-spectrum endpoint singularities.
+
+Weak-asymmetry cases show strong improvements over the no-response
+baseline, while moderate/large asymmetries demonstrably fail.
+This predicts a **capacity contrast**, not necessarily the first
+capacity peak timing or amplitude.
+
+- [Complete mathematical derivation and honest scope](docs/capacity_asymmetry_linear_response.md)
+- [Analytic spectral susceptibility](src/capacity_asymmetry_response.py)
+- [Independent finite-difference and reflection controls](tests/test_capacity_asymmetry_response.py)
+- [Capacity-response numerical benchmark](scripts/benchmark_capacity_asymmetry_response.py)
+
+Run `python scripts/benchmark_capacity_asymmetry_response.py` after
+`git pull origin main` to generate CSVs and figures.
