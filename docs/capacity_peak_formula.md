@@ -1,6 +1,6 @@
 # A quantitative formula for weak-asymmetry capacity-revival peak shifts
 
-**29 October 2026, preliminary analytical/numerical research result.**
+**28 October 2026, preliminary analytical/numerical research result.**
 
 **Scientific status:** We now have a *validated predictive formula* for the
 timing and height of a nondegenerate, isolated, smoothed capacity maximum
