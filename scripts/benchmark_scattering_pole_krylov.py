@@ -36,7 +36,7 @@ CONFIGURATIONS=((48,.775,.85),(64,.775,.85),(48,1.05,-.7),
                 # selected before scoring its capacity trajectory.
                 (56,.6,1.0))
 DT=.4
-NODES=768
+NODES=1536
 KRYLOV_BLOCKS=8
 
 
