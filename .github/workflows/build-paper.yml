@@ -78,6 +78,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_parity_resummation.py
 
+      - name: 5l - Test analytical first capacity-peak time and height formula
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_capacity_peak_response.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -199,4 +204,14 @@ jobs:
             results/parity_bound_energy_predictions.csv
             figures/parity_resummation_error.png
             figures/parity_channel_dressing.png
+          if-no-files-found: error
+
+      - name: 20 - Upload analytical peak predictions
+        uses: actions/upload-artifact@v7
+        with:
+          name: capacity-peak-formula
+          path: |
+            results/capacity_peak_response_benchmark.csv
+            figures/capacity_peak_shift_prediction.png
+            figures/capacity_peak_height_prediction.png
           if-no-files-found: error
