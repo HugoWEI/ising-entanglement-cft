@@ -73,6 +73,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_capacity_asymmetry_response.py
 
+      - name: 5k - Verify exact parity-resummed defect scattering
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_parity_resummation.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -183,4 +188,14 @@ jobs:
             results/capacity_asymmetry_example.csv
             figures/capacity_asymmetry_response.png
             figures/capacity_asymmetry_error_scaling.png
+          if-no-files-found: error
+
+      - name: 19 - Upload strong-asymmetry parity-channel results
+        uses: actions/upload-artifact@v7
+        with:
+          name: parity-channel-resummation
+          path: |
+            results/parity_resummation_benchmark.csv
+            figures/parity_resummation_error.png
+            figures/parity_channel_dressing.png
           if-no-files-found: error
