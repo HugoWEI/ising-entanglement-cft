@@ -402,3 +402,35 @@ Run `python scripts/benchmark_bound_coherence.py`.
 **Scientific status:** This is a tested application of known
 Gaussian covariance and determinant-lemma mathematics, not
 yet a proven novel simple strong-defect peak law.
+
+
+## Composite strong-defect formula from symmetric scattering and bound poles
+
+We now combine three existing ingredients to produce a
+**nonperturbative capacity prediction without diagonalizing the
+asymmetric Hamiltonian**:
+
+1. The exact parity-channel two-site scattering T-matrix supplies
+   the propagated occupied orbitals by an energy contour.
+2. The dressed bound-state energy and projector are obtained
+   from the same scalar scattering pole; subtracting the pole
+   gives the continuum orbitals.
+3. A pre-specified **eight-block Krylov approximation** evaluates
+   the fully nonlinear rank-two bound–continuum coherence
+   correction to the Gaussian modular capacity.
+
+Predicted broad peak times/heights are validated *afterward*
+against separately diagonalized asymmetric Hamiltonians for
+our original strong defect and an additional configuration.
+
+- [Full mathematical formula, assumptions and scientific limits](docs/scattering_pole_krylov_formula.md)
+- [Combined scattering-only predictor](src/scattering_pole_krylov_capacity.py)
+- [Independent full-Gaussian and symmetry tests](tests/test_scattering_pole_krylov_capacity.py)
+- [Held-out capacity-peak benchmark](scripts/benchmark_scattering_pole_krylov.py)
+
+Run `python scripts/benchmark_scattering_pole_krylov.py`.
+
+**Scientific limitation:** The continuum propagator is still
+computed by an expensive near-exact scattering contour. This
+is a rigorous nonperturbative *computational formula*, not yet
+the compact, original analytical first-revival law we seek.
