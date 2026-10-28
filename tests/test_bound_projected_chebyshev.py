@@ -127,3 +127,32 @@ def test_bad_parameters_and_fft_alias_guard():
         model.trajectory([-1.])
     with pytest.raises(ValueError):
         model.trajectory([4.],degree=30,fft_points=32)
+
+
+def test_bound_pole_recovered_without_any_full_hamiltonian_diagonalization(monkeypatch):
+    n=48
+    f0=initial_modes(n,"staggered")
+    def forbidden_dense_eigh(*args,**kwargs):
+        raise AssertionError("no full-chain eigendecomposition allowed for pole")
+    with monkeypatch.context() as patched:
+        patched.setattr(np.linalg,"eigh",forbidden_dense_eigh)
+        predictor=BoundProjectedChebyshev(n,.775,.85,f0)
+        moments=predictor.moments(30)
+    assert predictor.bound_energy==pytest.approx(2.398747915786,abs=5e-10)
+    assert np.max(abs(moments))<2.
+    # The same pole is independently recovered by the parity equation.
+    from parity_resummed_scattering import ParityResummedDefect
+    reference=ParityResummedDefect(n,.775)
+    assert predictor.bound_energy==pytest.approx(
+        reference.largest_eigenenergy(.85),abs=5e-10)
+
+
+def test_repeated_projection_prevents_out_of_band_chebyshev_explosion():
+    n=48
+    f0=initial_modes(n,"staggered")
+    predictor=BoundProjectedChebyshev(n,.775,.85,f0)
+    moments=predictor.moments(270)
+    # For a Hermitian continuum-scaled operator with spectrum
+    # in [-1,1], ||T_m(H_c)P_c F0||_F <= sqrt(N_occupied).
+    norm=np.linalg.norm(moments.reshape(len(moments),-1),axis=1)
+    assert np.max(norm) <= np.sqrt(n/2)+2e-8
