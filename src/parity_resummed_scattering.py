@@ -167,6 +167,40 @@ class ParityResummedDefect:
             np.sum(weights[:-1,opposite]/(self.e[-1]-self.e[:-1])))
         return float(self.e[-1]+coefficient*delta**2)
 
+
+    def largest_eigenprojector_from_residue(self,delta: float):
+        """Rank-one projector reconstructed from dressed T-matrix pole.
+
+        For the simple highest eigenvalue E_b of h(delta),
+          P_b = lim_(z->E_b) (z-E_b) R_delta(z)
+              = X(E_b) N(E_b) X(E_b)^T / D'(E_b),
+        where X=R_sym B, T=N/D, and
+          D'=-delta^2/4*(g_plus'*g_minus+g_plus*g_minus').
+        No asymmetric eigendecomposition is performed.
+
+        This projector is a defect-*bound* mode only if E_b>2.
+        """
+        delta=float(delta)
+        if delta==0 or not np.isfinite(delta):
+            raise ValueError("requires finite nonzero asymmetry")
+        energy=self.largest_eigenenergy(delta)
+        gp,gm=self.scalar_local_channels(energy)
+        inv=1/(energy-self.e)
+        weights=self.channel_eigenbasis**2
+        dgp=-float(np.sum(weights[:,0]*inv**2))
+        dgm=-float(np.sum(weights[:,1]*inv**2))
+        derivative=-(delta**2/4)*(dgp*gm+gp*dgm)
+        if not derivative>0:
+            raise RuntimeError("unexpected nonpositive pole derivative")
+        x=(self.q*inv)@self.channel_eigenbasis
+        numerator=np.array([
+            [delta**2*gm/4,delta/2],
+            [delta/2,delta**2*gp/4],
+        ],dtype=float)
+        projector=(x@numerator@x.T)/derivative
+        projector=(projector+projector.T)/2
+        return energy,projector
+
     def parity_diagnostic(self):
         """Symmetric reference must split into exact reflection sectors."""
         h=tight_binding_hamiltonian(
