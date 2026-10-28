@@ -98,3 +98,59 @@ def test_bad_input_rejected():
         model.components(-1)
     with pytest.raises(ValueError):
         model.trajectory([-1])
+
+
+@pytest.mark.parametrize("theta",[0.,np.pi/2,np.pi,3*np.pi/2])
+def test_bound_phase_kick_matches_independent_pure_gaussian_evolution(theta):
+    from scattering_phase import tight_binding_hamiltonian
+    n=12
+    pair=(1.2,.35)
+    initial=initial_modes(n,"staggered")
+    model=SingleBoundCoherence(n,pair,initial)
+    b=model.bound_vector
+    unitary=np.eye(n)+(np.exp(1j*theta)-1)*np.outer(b,b.conj())
+    altered=unitary@initial
+    assert np.allclose(altered.conj().T@altered,np.eye(n//2),atol=1e-10)
+    t=np.array([0.,2.,5.,9.])
+    predicted=model.trajectory(t,phase_kick=theta)[:,0]
+    exact=trajectory(n,pair,t,altered)[:,1]
+    assert np.allclose(predicted,exact,atol=2e-9)
+    h=tight_binding_hamiltonian(n,pair)
+    energy_orig=np.trace(initial.conj().T@h@initial)
+    energy_kicked=np.trace(altered.conj().T@h@altered)
+    assert abs(energy_orig-energy_kicked)<1e-10
+    for tt in (0.,5.):
+        at_time=model.components(tt,phase_kick=theta)
+        p=np.linalg.eigvalsh(at_time["full"])
+        assert p.min()>-1e-9 and p.max()<1+1e-9
+        z=1.4+.3j
+        assert np.allclose(
+            model.entanglement_determinant_ratio(tt,z,phase_kick=theta),
+            model.direct_determinant_ratio(tt,z,phase_kick=theta),
+            atol=3e-11)
+
+
+def test_phase_kick_changes_first_revival_without_changing_spectrum():
+    from revival_benchmark import first_broad_capacity_peak
+    n=48
+    times=np.arange(0,1.8*n+.01,.2)
+    model=SingleBoundCoherence(n,(1.2,.35),initial_modes(n,"staggered"))
+    initial_time=first_broad_capacity_peak(
+        times,model.trajectory(times,0.)[:,0],n)[0]
+    pi2_time=first_broad_capacity_peak(
+        times,model.trajectory(times,np.pi/2)[:,0],n)[0]
+    pi_time=first_broad_capacity_peak(
+        times,model.trajectory(times,np.pi)[:,0],n)[0]
+    triple_time=first_broad_capacity_peak(
+        times,model.trajectory(times,3*np.pi/2)[:,0],n)[0]
+    assert initial_time==pytest.approx(26.4,abs=.01)
+    assert pi2_time==pytest.approx(26.6,abs=.01)
+    assert pi_time==pytest.approx(27.6,abs=.01)
+    assert triple_time==pytest.approx(28.6,abs=.01)
+
+
+def test_invalid_phase_rejected():
+    n=12
+    model=SingleBoundCoherence(n,(1.2,.35),initial_modes(n,"staggered"))
+    with pytest.raises(ValueError):
+        model.components(1.,phase_kick=np.nan)
