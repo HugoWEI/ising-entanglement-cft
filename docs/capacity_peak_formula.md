@@ -227,3 +227,88 @@ Files:
 prediction* now exists. The all-delta resolvent/capacity formula is
 formally exact but does not yet solve the sought physical
 strong-defect revival-prediction problem in a compact form.
+
+
+## 8. An explicit numerical evaluation of the exact all-delta formula
+
+We implemented the parity-resummed spectral formula for arbitrary
+asymmetry as a **one-dimensional complex contour integral** using only
+the symmetric reference eigenvectors and a 2x2 scattering T-matrix.
+
+Let B=[|+>,|->], X(z)=R_sym(z)B, and
+D(z)=1-delta^2*g_plus(z)*g_minus(z)/4. Then
+
+    R_delta(z)=R_sym(z)+X(z)T_delta(z)X(z)^T,
+
+where
+
+    T_delta(z)=1/D(z) *
+        [[delta^2*g_minus(z)/4, delta/2],
+         [delta/2, delta^2*g_plus(z)/4]].
+
+For a positively oriented contour Γ enclosing ALL eigenvalues of
+h(delta) and h_sym,
+
+    U_delta(t) = U_sym(t) +
+        (1/(2*pi*i)) ∮_Γ exp(-izt) X(z)T_delta(z)X(z)^T dz.
+
+Importantly U_sym(t) is obtained *exactly* from symmetric sine /
+parity reference modes, so the only contour quadrature concerns the
+rank-two defect correction. We apply the correction directly to the
+occupied orbitals F0 to avoid forming a large resolvent at every
+energy point.
+
+Let F_delta(t)=U_delta(t)F0 and A be the left half. Then the
+following is a NONPERTURBATIVE CAPACITY FORMULA for every finite L
+and arbitrary real delta:
+
+    G_A(t;delta)=F_delta(t)[A,:]F_delta(t)[A,:]^dagger,
+
+    C_A(t;delta)=Tr[f(G_A(t;delta))],
+
+    f(p)=p(1-p)log^2[(1-p)/p].
+
+Equivalently, the exact Gaussian Renyi generating determinant is
+
+    Z_alpha(t)=det[G_A(t)^alpha+(I-G_A(t))^alpha],
+    C_A(t)=d^2/dalpha^2 log Z_alpha(t)|_(alpha=1).
+
+The numerical contour is parameterized by an ellipse
+z(theta)=a*cos(theta)+i*b*sin(theta), theta in [0,2pi), with
+semiaxis a strictly enclosing the symmetric-spectrum bounds plus
+the perturbation operator norm and a small margin. We use
+N=768 trapezoid nodes. To avoid exponentially amplified roundoff
+at large t, the imaginary semiaxis is reduced to
+b=min(.18,8/t_max). Time quadrature and reflection-contour
+errors are independently checked against the exact Gaussian
+reference; violations of orbital orthonormality >2e-6 throw
+rather than being silently repaired.
+
+This expression has been checked directly for strong asymmetry
+delta=.85 and delta=1.6 over full capacity trajectories at
+L=24,48,64, and both defect orientations. The computed trajectories
+and operational first broad peak times match independent
+full-Hamiltonian diagonalization to numerical accuracy, apart from
+minor contour quadrature errors.
+
+This is an **exact known mathematical representation**, not a
+new compact formula that predicts peak time without computing
+quantum dynamics. The contour evaluation can be more expensive
+than a direct full-chain diagonalization for the small L tested,
+and the energies entering the integrand are those of the
+symmetric reference. It demonstrates nonperturbative control
+without an asymmetrical eigensolver and provides a robust platform
+for later asymptotics/controlled pole truncation.
+
+Files:
+- src/parity_contour_capacity.py
+- tests/test_parity_contour_capacity.py
+- scripts/benchmark_parity_contour_capacity.py
+- results/parity_contour_capacity_benchmark.csv
+- figures/parity_contour_capacity_strong_defect.png
+
+**The remaining open research target:** reduce this exact contour
+expression to a *short explicit, interpretable, accurate first-revival
+time and height prediction* at strong defects. That has NOT yet
+been derived or validated. Standard contour+Gaussian formulas by
+themselves should not be presented as an original discovery.
