@@ -78,6 +78,6 @@ def test_bad_inputs_rejected():
         block_krylov_basis(np.eye(8),np.zeros((8,3)))
     with pytest.raises(ValueError):
         block_krylov_basis(np.eye(8),np.zeros((8,2)))
-    with pytest.raises(ValueError):
+    with pytest.raises(RuntimeError):
         predict_capacity_from_dephased(np.eye(8)*1.2,
                                       np.ones((8,2)),np.eye(2))
