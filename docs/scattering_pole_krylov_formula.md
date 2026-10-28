@@ -115,7 +115,7 @@ asymmetric Hamiltonian at
 
 Use m=8 Krylov blocks (at most 16 retained entanglement
 directions), a fixed numerical time step .4 for reporting,
-and N=768 contour nodes. No fit to any of the exact curves.
+and N=1536 contour nodes. No fit to any of the exact curves.
 
 Both forward and reversed defects are checked independently.
 The output reports the first broad peak-time error, peak height
@@ -165,6 +165,6 @@ prediction errors**. The post-quench Hamiltonian has one
 out-of-band state at about +2.30009465, verified as a
 model-class eligibility condition only.
 
-The fixed approximation settings (m=8, contour nodes 768,
+The fixed approximation settings (m=8, contour nodes 1536,
 observation dt=.4) are unchanged. Its accuracy or failure must
 be reported, not used for retuning m.
