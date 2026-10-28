@@ -268,3 +268,34 @@ capacity peak timing or amplitude.
 
 Run `python scripts/benchmark_capacity_asymmetry_response.py` after
 `git pull origin main` to generate CSVs and figures.
+
+
+## Exact all-orders scattering response under defect reversal
+
+For reversed central onsite potentials
+`(w+delta/2,w-delta/2)`, a symmetric reference chain splits into
+even and odd parity scattering channels. The antisymmetric defect
+couples only these two channels.
+
+An **exact 2x2 Dyson resummation** predicts the full single-particle
+resolvent difference between the reversed defects for arbitrary
+asymmetry `delta`, using *only the symmetric reference Hamiltonian*:
+
+`R_delta - R_-delta = delta (R0|+><-|R0 + R0|-><+|R0) / (1-delta^2*g_+*g_-/4)`.
+
+The result matches full asymmetric-matrix inversions to numerical
+precision even when first-order response has 7–32% relative error.
+
+**Scope caveat:** This is established symmetry/Dyson algebra, not a
+new result on entanglement capacity. The nonlinear capacity functional
+does not inherit this simple resummation automatically. A physically
+interpretable prediction for actual capacity-revival peak times and
+heights still requires a time-domain approximation and validation.
+
+- [Complete mathematical derivation, numbers, originality audit](docs/parity_resummation.md)
+- [Exact parity-channel resummation](src/parity_resummed_scattering.py)
+- [Independent tests against direct dense inverses](tests/test_parity_resummed_scattering.py)
+- [Strong-defect spectral benchmark and figures](scripts/benchmark_parity_resummation.py)
+
+Run `python scripts/benchmark_parity_resummation.py` to recreate the
+CSV and figures. GitHub Actions publishes these as artifacts.
