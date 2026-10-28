@@ -1,0 +1,83 @@
+"""Independent exact-matrix tests of parity-resummed scattering identity."""
+from pathlib import Path
+import sys
+import numpy as np
+import pytest
+
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
+from parity_resummed_scattering import ParityResummedDefect
+from scattering_phase import tight_binding_hamiltonian
+
+
+def direct_green(n,w,d,z):
+    h=tight_binding_hamiltonian(n,(w+d/2,w-d/2))
+    return np.linalg.inv(z*np.eye(n)-h)
+
+
+@pytest.mark.parametrize("n,w,d",[
+    (12,.775,.02),(12,.775,.85),(24,.775,1.6),
+    (24,.25,.3),(24,-.5,.85),(48,.775,.85)])
+@pytest.mark.parametrize("z",[.2+.4j,2.8+.35j,-1.2+.6j])
+def test_exact_contrast_matches_two_full_direct_inverses(n,w,d,z):
+    model=ParityResummedDefect(n,w)
+    actual=direct_green(n,w,d,z)-direct_green(n,w,-d,z)
+    predicted=model.contrast(z,d)
+    assert np.allclose(predicted,actual,atol=3e-12,rtol=3e-11)
+    assert np.allclose(model.green(z,d),direct_green(n,w,d,z),
+                       atol=3e-12,rtol=3e-11)
+
+
+def test_reversal_and_parity_are_exact():
+    n=24
+    model=ParityResummedDefect(n,.775)
+    assert model.parity_diagnostic()<1e-13
+    z=1.2+.7j
+    delta=.85
+    c=model.contrast(z,delta)
+    assert np.allclose(c,-model.contrast(z,-delta))
+    assert np.allclose(c,-c[::-1,::-1],atol=1e-12)
+    assert np.allclose(c,c.T,atol=1e-12)
+    assert np.allclose(model.green(z,-delta),
+                       model.green(z,delta)[::-1,::-1],atol=1e-12)
+
+
+def test_resummation_beats_linear_response_at_large_asymmetry():
+    model=ParityResummedDefect(24,.775)
+    z=2.8+.35j
+    delta=1.6
+    exact=direct_green(24,.775,delta,z)-direct_green(24,.775,-delta,z)
+    corrected=model.contrast(z,delta)
+    linear=model.contrast(z,delta,linear=True)
+    err_exact=np.linalg.norm(corrected-exact)/np.linalg.norm(exact)
+    err_linear=np.linalg.norm(linear-exact)/np.linalg.norm(exact)
+    assert err_exact<1e-11
+    assert err_linear>.2
+
+
+def test_even_channel_denominator_and_zero_asymmetry():
+    model=ParityResummedDefect(12,.775)
+    for z in (.1+.4j,3+.25j):
+        delta=.85
+        gp,gm,D,_=model.channel_data(z,delta)
+        assert D==pytest.approx(1-delta**2*gp*gm/4)
+        assert D==pytest.approx(model.channel_data(z,-delta)[2])
+        assert np.max(abs(model.contrast(z,0)))==0
+        assert np.allclose(model.green(z,0),direct_green(12,.775,0,z))
+
+
+def test_small_delta_linear_remainder_is_cubic_at_fixed_complex_energy():
+    model=ParityResummedDefect(24,.775)
+    z=.2+.4j
+    errs=[]
+    for delta in (.02,.04):
+        errs.append(np.linalg.norm(model.contrast(z,delta)-
+                                   model.contrast(z,delta,linear=True)))
+    assert 7 < errs[1]/errs[0] < 9
+
+
+def test_bad_input_rejected():
+    with pytest.raises(ValueError):
+        ParityResummedDefect(5,.3)
+    model=ParityResummedDefect(12,.775)
+    with pytest.raises(ValueError):
+        model.green(complex(model.e[-1]),.85)
