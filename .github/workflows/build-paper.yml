@@ -63,6 +63,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_reduced_time_propagators.py
 
+      - name: 5i - Verify coherent boundary returns and two-site Volterra dynamics
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_boundary_image_volterra.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -152,4 +157,14 @@ jobs:
             results/reduced_time_propagator_benchmark.csv
             figures/reduced_time_propagator_comparison.png
             figures/reduced_time_step_convergence.png
+          if-no-files-found: error
+
+      - name: 17 - Upload boundary-return Volterra benchmark
+        uses: actions/upload-artifact@v7
+        with:
+          name: boundary-return-volterra
+          path: |
+            results/boundary_image_volterra_benchmark.csv
+            figures/boundary_image_volterra_capacity.png
+            figures/boundary_image_propagator_error.png
           if-no-files-found: error
