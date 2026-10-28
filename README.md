@@ -299,3 +299,37 @@ heights still requires a time-domain approximation and validation.
 
 Run `python scripts/benchmark_parity_resummation.py` to recreate the
 CSV and figures. GitHub Actions publishes these as artifacts.
+
+
+## First explicit first-capacity-peak prediction formula (weak asymmetry)
+
+We now have a controlled predictive formula for the shift of an
+isolated smoothed capacity maximum under defect reversal. With
+asymmetry delta about a symmetric reference and its first isolated
+maximum at t0, the analytically predicted time and height
+differences are
+
+`Delta t_peak=-2*delta*chi_C'(t0)/C0''(t0)+O(delta^3)`
+and
+`Delta C_peak=2*delta*chi_C(t0)+O(delta^3)`.
+
+The capacity susceptibility `chi_C` is computed from the symmetric
+reference alone via Duhamel/Kubo response, before evaluating either
+asymmetric chain. The peak time and height predictions are
+validated for delta=.02 across six length/reference choices.
+The formula **fails** for the original strong asymmetry delta=.85;
+it is NOT an original general strong-defect revival theory.
+
+For all delta, the exact parity-resummed scattering resolvent
+and Gaussian Rényi determinant provide an **implicit exact
+spectral formula** for capacity, but this is established theory,
+not yet an economical explicit first-revival prediction.
+
+- [Derivation, numerical results, validity assumptions and exact all-delta implicit formula](docs/capacity_peak_formula.md)
+- [Predictive smoothed-peak formulas with branch tracking](src/capacity_peak_response.py)
+- [Independent weak- and strong-asymmetry validation tests](tests/test_capacity_peak_response.py)
+- [Reproducible peak-time and height benchmark](scripts/benchmark_capacity_peak_response.py)
+
+Run `python scripts/benchmark_capacity_peak_response.py`
+after `git pull origin main`. The Actions pipeline also
+uploads the CSV and figures.
