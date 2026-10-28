@@ -2,7 +2,7 @@
 
 This is an established Chebyshev propagation technique (Tal-Ezer &
 Kosloff, 1984) combined with the already implemented exact
-parity-resummed bound pole. It is NOT a new universal analytical
+clean-chain scattering bound pole. It is NOT a new universal analytical
 strong-defect revival law; its advantage is a rigorously controlled
 finite expansion without a complex-energy contour or asymmetric
 Hamiltonian eigendecomposition.
@@ -76,8 +76,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from scattering_phase import initial_modes, tight_binding_hamiltonian, entropy_capacity
-from parity_resummed_scattering import ParityResummedDefect
+from scattering_phase import entropy_capacity
+from defect_tmatrix import TwoSiteDefectResolvent
 
 
 def bessel_tail_bound(time: float, degree: int) -> float:
@@ -176,14 +176,37 @@ class BoundProjectedChebyshev:
         self.length=n
         self.potentials=(u,v)
         self.occupied=initial
-        self.reference=ParityResummedDefect(n,w)
-        E,projector=self.reference.largest_eigenprojector_from_residue(d)
-        if E<=2:
-            raise ValueError("expected positive out-of-band pole")
-        idx=int(np.argmax(np.real(np.diag(projector))))
-        b=projector[:,idx]/np.sqrt(float(np.real(projector[idx,idx])))
-        if np.linalg.norm(np.outer(b,b.conj())-projector)>5e-8:
-            raise RuntimeError("invalid bound-pole projector")
+        # The clean open-chain sine spectrum is available analytically:
+        # this step diagonalizes NO symmetric or asymmetric Hamiltonian.
+        # For V>=0, the 2x2 Birman-Schwinger eigenvalues of
+        # sqrt(V)*g_clean(E)*sqrt(V) are monotone decreasing for E>2.
+        # Its largest eigenvalue crosses one at the unique bound pole.
+        self.scattering=TwoSiteDefectResolvent(n,(u,v))
+        weights=np.sqrt([u,v])
+        def birman_schwinger_largest(energy):
+            g=self.scattering.defect_green(energy).real
+            k=weights[:,None]*g*weights[None,:]
+            return float(np.linalg.eigvalsh(k)[-1])
+        lo=2.
+        if birman_schwinger_largest(lo)<=1:
+            raise ValueError("no positive out-of-band pole")
+        hi=2+max(3.,u+v+2.)
+        for _ in range(60):
+            if birman_schwinger_largest(hi)<1:
+                break
+            hi=2+2*(hi-2)
+        else:
+            raise RuntimeError("could not bracket clean-chain scattering pole")
+        for _ in range(110):
+            mid=(lo+hi)/2
+            if hi-lo<3e-13:
+                break
+            if birman_schwinger_largest(mid)>1:
+                lo=mid
+            else:
+                hi=mid
+        E=(lo+hi)/2
+        b=self.scattering.bound_wavefunction(E)
         self.b=np.real_if_close(b).astype(float)
         self.bound_energy=float(E)
         self.bound_initial=np.outer(self.b,self.b@self.occupied)
