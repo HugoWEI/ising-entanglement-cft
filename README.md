@@ -216,3 +216,28 @@ Run `python scripts/benchmark_reduced_time_propagators.py`.
 Their accuracy is NOT evidence for an original analytical prediction
 of capacity revival timing or amplitude. Our open task remains deriving
 and validating a genuinely reduced coherent scattering model.
+
+
+## Coherent boundary-reflection paths: two-site Volterra model
+
+The clean open-chain propagator is now represented as a sum of complex
+infinite-chain amplitudes and their **reflected images**. The defect
+dynamics obey a closed **two-site Dyson/Volterra convolution equation**,
+which resums multiple impurity encounters without diagonalizing the
+full defective Hamiltonian.
+
+The finite-image/time-grid approximation is NOT automatically unitary.
+The benchmark explicitly reports isometry violations and optionally
+applies a nearest-column-isometry (polar) correction. Keeping two image
+orders greatly improves the 48-site capacity prediction over keeping
+zero or one, but this is still a numerical scattering-path method,
+not a new compact analytical revival formula.
+
+- [Derivation, empirical errors, caveats](docs/boundary_return_volterra.md)
+- [Infinite-chain Fourier kernel and finite hard-wall images](src/boundary_images.py)
+- [Two-site Dyson/Volterra solver and explicit physicality checks](src/boundary_image_volterra.py)
+- [Independent validation tests](tests/test_boundary_image_volterra.py)
+- [Reproducible exact-vs-path benchmark](scripts/benchmark_boundary_image_volterra.py)
+
+Run `python scripts/benchmark_boundary_image_volterra.py` for the
+CSV and two figures. GitHub Actions publishes these as artifacts.
