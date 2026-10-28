@@ -462,3 +462,42 @@ it does not imply a real experimental phase gate exists.
 - [Independent Gaussian/energy-preservation tests](tests/test_bound_coherence_determinant.py)
 
 Run `python scripts/benchmark_bound_phase_kicks.py` after pulling.
+
+
+## Error-bounded finite coherent-walk formula: no contour integral
+
+The positive-impurity, **single-bound-mode** hopping model now has
+an explicit Bessel/Chebyshev propagator expansion with the bound
+energy and eigenprojector from the exact parity scattering pole:
+
+`U_M(t)F0 = exp(-i E_b t)P_bF0 + J0(2t)P_cF0 + 2 sum_{m=1}^M (-i)^m J_m(2t) T_m(h/2)P_cF0`.
+
+The continuum moments are computed by a projected nearest-neighbor
+three-term recurrence. No asymmetric Hamiltonian diagonalization
+or complex-energy contour integration is used for prediction.
+**Projection at every step** is essential for numerical stability,
+because the omitted bound eigenvalue lies outside the Chebyshev
+interval [-1,1].
+
+We derive a conservative a-priori exponential Bessel tail bound
+for `M+1>2t`, plus a Fourier alias bound, and propagate that
+through a nearest-isometry repair into an endpoint-safe bound
+on modular-capacity error. These analytical bounds assume exact
+bound-state information and arithmetic; numerical errors are
+checked separately.
+
+The experiment uses fixed tolerances 1e-3, 1e-7, 1e-12,
+predicts first broad capacity peaks for the original and
+prospectively added 56-site strong defects, and independently
+scores against exact lattice evolution. The finite sum is a
+known Chebyshev time-propagation technique (Tal-Ezer and
+Kosloff, J. Chem. Phys. 81 (1984), DOI 10.1063/1.448136),
+adapted here to exact bound-pole separation; we do NOT
+claim a newly discovered method or a universal short-path
+peak timing law.
+
+- [Pole-exact Chebyshev/Bessel prediction and error bounds](src/bound_projected_chebyshev.py)
+- [Independent tests and physicality controls](tests/test_bound_projected_chebyshev.py)
+- [Multi-defect peak and convergence benchmark](scripts/benchmark_bound_chebyshev.py)
+
+Run `python scripts/benchmark_bound_chebyshev.py` after pulling.
