@@ -88,6 +88,11 @@ jobs:
           OPENBLAS_NUM_THREADS: "1"
         run: python scripts/benchmark_parity_contour_capacity.py
 
+      - name: 5n - Validate exact bound-coherence determinant and reduced Krylov hierarchy
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+        run: python scripts/benchmark_bound_coherence.py
+
       - name: 6 - Compile the LaTeX paper
         uses: xu-cheng/latex-action@v4
         with:
@@ -228,4 +233,15 @@ jobs:
           path: |
             results/parity_contour_capacity_benchmark.csv
             figures/parity_contour_capacity_strong_defect.png
+          if-no-files-found: error
+
+      - name: 22 - Upload bound-state coherence determinant and Krylov results
+        uses: actions/upload-artifact@v7
+        with:
+          name: bound-coherence-rank-two
+          path: |
+            results/bound_coherence_reversal.csv
+            results/bound_coherence_krylov.csv
+            figures/bound_coherence_reversal.png
+            figures/bound_coherence_krylov_convergence.png
           if-no-files-found: error
