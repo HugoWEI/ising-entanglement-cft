@@ -265,3 +265,92 @@ Outputs:
 - results/bound_phase_fourier_heldout.csv
 - figures/bound_phase_peak_shift_prediction.png
 - figures/bound_phase_harmonic_compression.png
+
+
+## 9. Independent CI validation and no-diagonalization coupling
+
+**Focused GitHub Actions run (success; 24 tests passed):**
+https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40791880468
+
+We now also combine this exact phase-response identity with the
+previous *bound-pole-exact Bessel/Chebyshev walk propagator* in
+\`src/walk_phase_response.py\`. For each desired fixed Hamiltonian,
+the new hybrid predictor:
+
+1. Obtains the impurity-bound eigenenergy and projector by the
+   2x2 **clean-chain Birman–Schwinger equation**, using analytic
+   sine eigenfunctions and no Hamiltonian diagonalization.
+2. Computes the band occupied orbitals by projected Chebyshev
+   walks of degree M fixed by an a-priori Bessel tail tolerance.
+3. Constructs D(t), x(t), y(t), exact-in-coherence G(t,theta0),
+   and the phase susceptibility chi_theta(t,theta0).
+4. Predicts the +/-phase LOCAL peak time/height contrasts
+   using only the theta0 preparation.
+5. Subsequently uses the exact full Hamiltonian eigensystem
+   *only to score held-out phase-rotated preparations*.
+
+This uses **NO full-chain Hamiltonian diagonalization in the
+prediction**, including the reference dynamics.
+
+### Validated held-out local peak-time contrasts
+
+For initial theta0=0, phase offsets +/-0.10 radians,
+Gaussian-smoothed capacity width 2, time sample spacing .2:
+
+| L | (u,v) | walk prediction | independent exact | |difference| |
+|---:|---|---:|---:|---:|
+| 48 | (1.2,.35) | -0.105628 | -0.106108 | .000480 |
+| 64 | (1.2,.35) | +0.166652 | +0.166270 | .000382 |
+| 48 | (.7,1.4) | +0.043785 | +0.043745 | .000040 |
+| 56 | (1.1,.1) | +0.023869 | +0.023827 | .000042 |
+
+For +/-0.02 radians the differences agree to about
+the sixth decimal or better in these tests.
+For +/-0.30 radians, the 48-site original pair has
+prediction -0.316884 versus exact -0.358395:
+the cubic nonlinear remainder becomes appreciable.
+The same model is more accurate at 64 sites for
++/-0.30 (+0.499957 versus +0.496149), so there
+is **no uniform finite phase radius of validity**
+demonstrated by this pilot.
+
+The a-priori CONTINUUM ORBITAL truncation bounds are
+about 9.7e-13 (L=48, polynomial degree 227),
+7.7e-13 (L=56, degree 259) and
+5.2e-13 (L=64, degree 291). These do NOT
+automatically bound the phase susceptibility or
+peak-time errors, which require additional spectral
+regularity and curvature estimates.
+
+### Validated angular harmonics
+
+The exact spectral determinant is FIRST harmonic in
+theta; capacity is not. Across 12 phase angles
+held out from the four cardinal fit phases
+(0, pi/2, pi, 3pi/2), the measured mean
+second-to-first harmonic ratios were:
+
+| L | (u,v) | A2/A1 | average held-out capacity RMSE |
+|---:|---|---:|---:|
+| 48 | (1.2,.35) | .080 | .00888 |
+| 64 | (1.2,.35) | .074 | .00730 |
+| 48 | (.7,1.4) | .144 | .01813 |
+| 56 | (1.1,.1) | .074 | .00619 |
+
+A first-harmonic capacity approximation is often useful,
+but not an exact identity or a universal peak predictor.
+No retuning was performed using the held-out angles.
+
+Files:
+- src/walk_phase_response.py
+- tests/test_walk_phase_response.py
+- scripts/benchmark_walk_phase_response.py
+- results/walk_phase_peak_response.csv
+- figures/walk_phase_peak_response.png
+
+The new result is a quantitatively validated **local
+phase-control response at strong defect strength**, built
+from standard coherent quantum evolution and matrix
+functional calculus. Its mathematical components are
+established, and originality still needs a focused
+literature comparison before publication claims.
