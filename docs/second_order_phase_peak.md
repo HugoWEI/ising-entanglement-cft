@@ -202,3 +202,58 @@ accurate Taylor polynomial is not, by itself, that result.
 
 All numerical outputs and plotted errors are recorded
 without editing the fixed parameters to match test curves.
+
+
+## 7. Final no-diagonalization CI verification
+
+**Successful focused workflow run:**
+https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40837992169
+
+40 tests passed, including tests of:
+- scalar second derivative and full Gaussian spectral curvature,
+- near-degenerate eigenspectrum divided differences,
+- local quadratic peak prediction,
+- exact-reference versus scattering-walk phase curvature,
+- no full-chain Hamiltonian eigendecomposition during prediction.
+
+The strong-defect walk implementation obtains exactly the same
+reported predicted peak times as the exact-continuum reference,
+to the precision shown here. Both first-order and second-order
+models use ONLY reference phase theta0=0 to construct
+the +/-shifted prediction.
+
+| L | defect | phase eta | held-out exact peak | first order | second order |
+|---:|---|---:|---:|---:|---:|
+| 48 | (1.2,.35) | -.30 | 26.68405 | 26.63551 | 26.68788 |
+| 48 | (1.2,.35) | +.30 | 26.32566 | 26.29022 | 26.32459 |
+| 64 | (1.2,.35) | -.30 | 36.23709 | 36.24383 | 36.23399 |
+| 64 | (1.2,.35) | +.30 | 36.73324 | 36.74187 | 36.73720 |
+| 56 | (1.1,.1) | -.60 | 30.75553 | 30.69861 | 30.75406 |
+| 56 | (1.1,.1) | +.60 | 30.88985 | 30.84196 | 30.89272 |
+
+Across FOUR configurations and both +/- phase orientations:
+- +/- .08 radians: first-order mean absolute peak-time error
+  0.00119826, quadratic 0.000031165 (97.4% reduction).
+- +/- .30 radians: first-order 0.0172698, quadratic
+  0.00180027 (89.6% reduction).
+- +/- .60 radians: first-order 0.082243, quadratic
+  0.0396992 (51.7% reduction).
+
+For the original L=48 case at phase -.60, the quadratic
+prediction 27.69369 remains substantially too late
+compared with exact 27.45859. This is not a universal
+large-phase theory, and no retuning to fix this case
+was performed.
+
+The exact-continuum and Chebyshev-walk-based second-order
+predictions agree, so remaining deviations are from
+the PHASE Taylor truncation / peak-branch sensitivity,
+not from noticeable numerical errors in the walk propagator.
+
+Detailed numerical data and figures:
+- results/bound_phase_second_order_peak.csv
+- figures/bound_phase_quadratic_peak_errors.png
+- results/walk_phase_quadratic_peak.csv
+- figures/walk_phase_quadratic_peak.png
+
+The workflow publishes all data/figures as an artifact.
