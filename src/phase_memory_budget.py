@@ -66,6 +66,12 @@ def bound_mode_occupation(bound_orbital,occupied_modes):
     beta=float(np.linalg.norm(b.conj()@f)**2)
     if beta< -1e-9 or beta>1+1e-9:
         raise RuntimeError("invalid bound occupation")
+    # A projector expectation can round to 1 - O(machine epsilon);
+    # saturate numerically indistinguishable endpoint occupations.
+    if beta<1e-12:
+        return 0.0
+    if 1-beta<1e-12:
+        return 1.0
     return min(1.,max(0.,beta))
 
 
