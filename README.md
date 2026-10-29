@@ -645,3 +645,48 @@ from standard mathematical physics—not an original universal
 few-scattering-path revival law. Chebyshev orbital truncation
 bounds do not automatically certify the capacity's phase
 derivatives or continuous-time peak positions.
+
+
+## Conserved phase-memory budget and exact many-body fidelity
+
+The fixed-defect phase-control experiments now have a rigorous,
+time-independent **initial-coherence budget**. If the bound eigenmode
+has initial occupation `beta`, rotating only its phase by
+`theta-phi` gives exact GLOBAL one-body covariance distances
+
+`||Delta G||_F=2 sqrt(2)|sin((theta-phi)/2)| sqrt[beta(1-beta)]`
+and
+`||Delta G||_1=4|sin((theta-phi)/2)| sqrt[beta(1-beta)]`.
+
+For subsystem bound-mode weight `alpha_A`, the reduced covariance
+contrast is at most
+`4|sin((theta-phi)/2)|sqrt[alpha_A beta(1-beta)]` in trace norm.
+We derive an endpoint-safe Hölder bound on the resulting
+modular-capacity difference, as well as a sharper conditional
+entanglement-spectrum-gap estimate.
+
+In the PURE many-body Slater state, the fidelity between
+two phase preparations obeys
+`F=1-4 beta(1-beta) sin^2((theta-phi)/2)`.
+Hence the bound-phase quantum Fisher information is exactly
+`F_Q=4 beta(1-beta)`, an established phase-metrology result
+that operationally interprets the coherence budget.
+
+This explains a necessary condition for substantial phase control,
+**not its sufficient mechanism**: the same beta can yield very
+different revival timing responses across defects and system sizes.
+Our original L=48 defect, for example, shows 0, 2.4 and 2.4
+time-grid units of peak-time spread over four phases when the
+initial staggered gap is .5, 2.5 or 8 (sample spacing .4).
+
+- [Mathematical proof, 18-case preparation sweep and limitations](docs/phase_memory_budget.md)
+- [Conserved coherence and Gaussian capacity bound code](src/phase_memory_budget.py)
+- [Independent projector, Gaussian and many-body fidelity tests](tests/test_phase_memory_budget.py)
+- [Reproducible preparation and defect parameter sweep](scripts/benchmark_phase_memory_budget.py)
+- [Passing focused workflow](https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40839854763) — 28 tests passed.
+
+**Novelty warning:** This uses standard projector algebra,
+unitary invariance, pure-state QFI and matrix-continuity
+inequalities. The new physics goal is to explain how the
+conserved coherence is distributed among *returning paths*
+and entanglement modes at finite-size revivals.
