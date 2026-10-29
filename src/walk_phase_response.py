@@ -30,6 +30,8 @@ import numpy as np
 from bound_projected_chebyshev import (
     BoundProjectedChebyshev,bessel_tail_bound,degree_for_tolerance)
 from bound_phase_peak_response import phase_susceptibility_from_components
+from bound_phase_curvature import second_phase_susceptibility_from_components
+from capacity_peak_response import find_reference_peak,tracked_peak
 from capacity_peak_response import predict_reversed_peaks
 from scattering_phase import entropy_capacity
 
@@ -41,7 +43,7 @@ class WalkPhaseResponse:
         self.length=int(length)
 
     def trajectory(self,times,phase=0.,degree=None,target=1e-12,
-                   isometry_tolerance=2e-7):
+                   isometry_tolerance=2e-7,include_curvature=False):
         times=np.asarray(times,float)
         phase=float(phase)
         if (times.ndim!=1 or not len(times) or
@@ -59,7 +61,7 @@ class WalkPhaseResponse:
         b=solver.b
         q=b@solver.occupied
         beta=float(np.vdot(q,q).real)
-        values=np.empty((len(times),3))
+        values=np.empty((len(times),4 if include_curvature else 3))
         max_error=0.
         for i,time in enumerate(times):
             A=fc[i,:n//2]
@@ -84,7 +86,13 @@ class WalkPhaseResponse:
             chi,near=phase_susceptibility_from_components(
                 {"full":G,"X":X},phase)
             values[i,1]=chi
-            values[i,2]=near
+            if include_curvature:
+                second,second_near=second_phase_susceptibility_from_components(
+                    {"full":G,"X":X},phase)
+                values[i,2]=second
+                values[i,3]=max(near,second_near)
+            else:
+                values[i,2]=near
         return {
             "times":times,"values":values,
             "degree":M,
@@ -108,3 +116,41 @@ class WalkPhaseResponse:
         result["max_walk_isometry_error"]=data[
             "max_occupied_isometry_error"]
         return result
+
+
+    def quadratic_peak(self,times,phase_offset,base_phase=0.,
+                       target=1e-12,window_radius=3.):
+        """Predict individual peak times to second phase order using walks.
+
+        All reference C,chi,kappa are computed from one fixed
+        preparation phase with NO full-chain Hamiltonian diagonalization.
+        The shifted preparations are NOT used for this prediction.
+        """
+        t=np.asarray(times,float)
+        data=self.trajectory(t,phase=base_phase,target=target,
+                             include_curvature=True)
+        C,chi,kappa=(data["values"][:,i] for i in range(3))
+        reference=find_reference_peak(t,C,self.length)
+        if reference is None:
+            return None
+        eta=float(phase_offset)
+        first=C+eta*chi
+        second=first+.5*eta*eta*kappa
+        t0=reference[0]
+        a=tracked_peak(t,first,t0,self.length,
+                       window_radius=window_radius)
+        b=tracked_peak(t,second,t0,self.length,
+                       window_radius=window_radius)
+        return {
+            "reference_peak_time":float(t0),
+            "linear_peak_time":float(a[0]) if a else np.nan,
+            "quadratic_peak_time":float(b[0]) if b else np.nan,
+            "linear_peak_height":float(a[1]) if a else np.nan,
+            "quadratic_peak_height":float(b[1]) if b else np.nan,
+            "polynomial_degree":int(data["degree"]),
+            "a_priori_orbital_tail_bound":
+                data["a_priori_orbital_tail_bound"],
+            "max_walk_isometry_error":
+                data["max_occupied_isometry_error"],
+            "max_near_edge_occupations":int(np.max(data["values"][:,3])),
+        }
