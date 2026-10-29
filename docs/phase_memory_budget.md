@@ -325,3 +325,64 @@ a quantitative constraint and a useful physical control.
 Its algebra is established and its peak-timing explanatory
 power remains incomplete: predicting the *spatial/time
 distribution* of this coherence is the harder physics task.
+
+
+## 8. A many-body interpretation: exact fidelity and quantum Fisher information
+
+Let n_b=c_b†c_b be the occupation operator of the
+localized single-particle eigenmode. The one-particle
+phase rotation V_theta lifts to the many-body unitary
+exp(i theta n_b) up to the usual fermion representation.
+
+Because n_b has only eigenvalues 0 and 1 and
+<Ψ0|n_b|Ψ0>=beta, ANY initial pure state (not just
+a Slater determinant) obeys
+
+    <Psi_theta|Psi_phi>
+       =1-beta+beta exp[i(phi-theta)].
+
+Consequently the exact many-body fidelity is
+
+    BOXED:
+    F(theta,phi)
+       =|<Psi_theta|Psi_phi>|²
+       =1-4beta(1-beta) sin²[(theta-phi)/2].
+
+This fidelity remains constant under common unitary
+time evolution. Because [h,n_b]=0 in the fixed
+post-quench Hamiltonian, all final spectral mode
+populations are also unchanged by the phase rotation.
+
+For pure-state encoding of theta by exp(i theta n_b),
+standard quantum Fisher information is
+
+    BOXED:
+    F_Q =4 Var(n_b)=4beta(1-beta).
+
+This equals four times the squared coherence budget
+defined in section 2. It reaches the **maximum F_Q=1**
+at beta=1/2 and vanishes at beta=0 and 1.
+
+The fidelity is independently validated in code using
+the Slater determinant overlap
+
+    <Psi_theta|Psi_phi>
+       =det(F_theta† F_phi),
+
+which reduces by the rank-one matrix determinant
+lemma to the same scalar 1-beta+beta exp(iΔtheta).
+The tests also check time invariance, the
+beta endpoints, and the small-angle expansion
+
+    F(theta,theta+delta)
+       =1-F_Q delta²/4+O(delta⁴).
+
+**This is standard pure-state quantum metrology,
+not a novel theorem.** It gives an operational
+interpretation of the initial phase-memory budget
+and implies that any reduced-subsystem information
+cannot exceed the global phase information
+under data processing. It does NOT tell us the
+time of the first modular-capacity revival;
+that requires propagation and entanglement
+spectral dynamics.
