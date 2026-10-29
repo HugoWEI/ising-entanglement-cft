@@ -530,3 +530,49 @@ symmetric-reference one).
 
 These are known spectral and Chebyshev numerical techniques applied
 to our capacity problem, not yet a novel few-path revival law.
+
+
+## Exact bound-coherence phase susceptibility and local peak-shift prediction
+
+Keeping the Hamiltonian, bound-state energy, **all scattering data**
+and all final energy-mode populations fixed, we can apply a unitary
+phase gate to the initial bound-mode coherence. For the unique bound
+state and left-half Gaussian covariance:
+
+`G_A(t,theta)=D(t)+exp(i theta)x(t)y(t)†+exp(-i theta)y(t)x(t)†`.
+
+The capacity's **exact phase susceptibility at arbitrary theta** is
+
+`chi_theta(t)=-2 Im[exp(i theta)y†f'(G_A(t,theta))x]`,
+
+with `f(p)=p(1-p)log²[(1-p)/p]`.
+
+For an isolated smoothed capacity peak t0, standard implicit
+differentiation predicts the small-phase shift
+
+`dt_peak/dtheta=-[partial_t chi_theta(t0)]/[partial_t² C_A(t0)]`.
+
+This predicts the sign and magnitude of the nearby phase-dependent
+first-peak displacement from just ONE reference phase, with
+independent held-out phase tests. The sign actually reverses
+between 48 and 64 sites for our original defect—there is no
+universal positive phase-delay correction.
+
+A complementary exact 2x2 determinant identity proves that the
+entanglement-spectrum characteristic-polynomial *ratio* contains
+only first angular harmonics; **capacity itself has higher harmonics**.
+Four cardinal phase evaluations are compared against twelve
+held-out phase angles to quantify this distinction.
+
+- [Exact formulas, physical controls, pilot values, and originality cautions](docs/phase_coherence_peak_response.md)
+- [Phase susceptibility and spectral harmonic implementation](src/bound_phase_peak_response.py)
+- [Independent susceptibility/peak/determinant tests](tests/test_bound_phase_peak_response.py)
+- [Phase-shift and 12-angle benchmark](scripts/benchmark_bound_phase_peak_response.py)
+- [Focused CI for this research milestone](.github/workflows/phase-coherence-check.yml)
+
+Run `python scripts/benchmark_bound_phase_peak_response.py`.
+
+**Scientific caution:** This is a known matrix-calculus and
+implicit-function framework applied to a particular quantum
+information observable, not yet a novel universal capacity-revival
+law. The response uses the exact band covariance at one phase.
