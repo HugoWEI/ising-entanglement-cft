@@ -11,9 +11,11 @@ on:
       - 'scripts/benchmark_bound_phase_peak_response.py'
       - 'scripts/benchmark_walk_phase_response.py'
       - 'scripts/benchmark_bound_phase_curvature.py'
+      - 'scripts/benchmark_walk_phase_curvature.py'
       - 'tests/test_bound_phase_peak_response.py'
       - 'tests/test_walk_phase_response.py'
-      - 'tests/test_bound_phase_curvature.py'
+      - 'tests/test_bound_phase_curvature.py tests/test_walk_phase_curvature.py'
+      - 'tests/test_walk_phase_curvature.py'
       - '.github/workflows/phase-coherence-check.yml'
 
 permissions:
@@ -47,6 +49,10 @@ jobs:
         env:
           OPENBLAS_NUM_THREADS: '1'
         run: python scripts/benchmark_bound_phase_curvature.py
+      - name: Test finite-walk quadratic phase-peak prediction
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: python scripts/benchmark_walk_phase_curvature.py
       - name: Export reproducible data and graphics
         uses: actions/upload-artifact@v4
         with:
@@ -60,4 +66,6 @@ jobs:
             figures/walk_phase_peak_response.png
             results/bound_phase_second_order_peak.csv
             figures/bound_phase_quadratic_peak_errors.png
+            results/walk_phase_quadratic_peak.csv
+            figures/walk_phase_quadratic_peak.png
           if-no-files-found: error
