@@ -8,7 +8,9 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"src"))
 from scattering_phase import initial_modes,tight_binding_hamiltonian,trajectory,entropy_capacity
 from phase_memory_budget import (
     bound_mode_occupation,coherence_budget,pure_phase_gate,
-    covariance_phase_distance,capacity_endpoint_holder_bound,
+    covariance_phase_distance,pure_slater_phase_overlap,
+    pure_slater_phase_fidelity,bound_number_phase_quantum_fisher,
+    capacity_endpoint_holder_bound,
     capacity_spectral_gap_bound,capacity_difference_bounds)
 
 
@@ -121,3 +123,52 @@ def test_bounds_inputs_and_occupations():
     b=np.linalg.eigh(tight_binding_hamiltonian(n,(1.2,.35)))[1][:,-1]
     with pytest.raises(ValueError):
         pure_phase_gate(b,initial_modes(n,"staggered"),np.inf)
+
+
+
+@pytest.mark.parametrize("n,pair",[(12,(1.2,.35)),(24,(.7,1.4)),
+                                     (48,(1.2,.35))])
+@pytest.mark.parametrize("theta,phi",[(.0,.4),(.2,1.9),(.0,np.pi)])
+def test_exact_many_body_slater_fidelity_and_qfi(n,pair,theta,phi):
+    h=tight_binding_hamiltonian(n,pair)
+    e,U=np.linalg.eigh(h)
+    b=U[:,-1]
+    occupied=initial_modes(n,"staggered",stagger=2.5)
+    beta=bound_mode_occupation(b,occupied)
+    ftheta,_=pure_phase_gate(b,occupied,theta)
+    fphi,_=pure_phase_gate(b,occupied,phi)
+    # Slater determinant inner product, independent of arbitrary
+    # choices of many-body fermion-operator ordering up to common sign.
+    observed=np.linalg.det(ftheta.conj().T@fphi)
+    predicted=pure_slater_phase_overlap(beta,phi-theta)
+    assert observed==pytest.approx(predicted,abs=1e-10)
+    fidelity=abs(observed)**2
+    assert fidelity==pytest.approx(
+        pure_slater_phase_fidelity(beta,phi-theta),abs=1e-10)
+    QFI=bound_number_phase_quantum_fisher(beta)
+    assert QFI==pytest.approx(4*beta*(1-beta),abs=1e-12)
+    assert QFI<=1+1e-12
+    for t in (0.,n*.35):
+        phase=np.exp(-1j*e*t)
+        transformed_theta=U@(phase[:,None]*(U.conj().T@ftheta))
+        transformed_phi=U@(phase[:,None]*(U.conj().T@fphi))
+        evolved_overlap=np.linalg.det(
+            transformed_theta.conj().T@transformed_phi)
+        assert evolved_overlap==pytest.approx(observed,abs=1e-10)
+
+
+def test_phase_information_fidelity_extremes_and_qfi_local_expansion():
+    for beta in (0.,.5,1.):
+        expected=1. if beta in (0.,1.) else 0.
+        assert pure_slater_phase_fidelity(beta,np.pi)==pytest.approx(expected)
+        assert bound_number_phase_quantum_fisher(beta)==pytest.approx(
+            0. if beta in (0.,1.) else 1.)
+    beta=.31442
+    small=.001
+    actual=pure_slater_phase_fidelity(beta,small)
+    predicted=1-.25*bound_number_phase_quantum_fisher(beta)*small**2
+    assert actual==pytest.approx(predicted,abs=1e-13)
+    with pytest.raises(ValueError):
+        bound_number_phase_quantum_fisher(1.3)
+    with pytest.raises(ValueError):
+        pure_slater_phase_fidelity(.3,np.nan)
