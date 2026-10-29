@@ -1,0 +1,407 @@
+[
+  {
+    "defect": [
+      1.2,
+      0.35
+    ],
+    "n_samples": 1441,
+    "dt": 0.025,
+    "peak_airy": 26.421402462339884,
+    "peak_bessel": 26.421410455704624,
+    "peak_shift_bessel_minus_airy": 7.993364739888875e-06,
+    "max_capacity_gap": 1.7788189457412784e-05,
+    "max_capacity_bound_all_samples": 0.0018443390368530523,
+    "max_capacity_bound_20_to_34": 0.0015123576693612563,
+    "max_occupation_amplitude_gap_20_to_34": 0.00012596248777471003,
+    "min_singular_lower_all": 0.966844857047539,
+    "bound_violations": 31,
+    "near_peak_diagnostics": [
+      {
+        "radius": 0.05,
+        "eta1_grid": 0.0001661634410822059,
+        "eta2_grid": 0.00010486432478749737,
+        "kappa_grid": 0.02822057214700998,
+        "left_current_minus_eta1": 0.0013227619262850595,
+        "right_current_minus_eta1": 0.001270998565870844,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.0059099860523828375
+      },
+      {
+        "radius": 0.1,
+        "eta1_grid": 0.00016853854093035997,
+        "eta2_grid": 0.00010608037829782244,
+        "kappa_grid": 0.02716405188651374,
+        "left_current_minus_eta1": 0.0028602482852848987,
+        "right_current_minus_eta1": 0.0026532916360504422,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.006228794382431244
+      },
+      {
+        "radius": 0.2,
+        "eta1_grid": 0.00017335869759929043,
+        "eta2_grid": 0.00010851573145310338,
+        "kappa_grid": 0.025018320084404414,
+        "left_current_minus_eta1": 0.00608418674257435,
+        "right_current_minus_eta1": 0.005257906978659605,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.0069594564109352755
+      },
+      {
+        "radius": 0.4,
+        "eta1_grid": 0.00018325661840183895,
+        "eta2_grid": 0.00011341547894999533,
+        "kappa_grid": 0.02065606245304509,
+        "left_current_minus_eta1": 0.013096726904704604,
+        "right_current_minus_eta1": 0.00981623937175261,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.008920788963220327
+      },
+      {
+        "radius": 0.8,
+        "eta1_grid": 0.00020386653495306996,
+        "eta2_grid": 0.00012349064105313974,
+        "kappa_grid": 0.012153301192170125,
+        "left_current_minus_eta1": 0.02906991800338885,
+        "right_current_minus_eta1": 0.01633461124420695,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.01694677851216374
+      }
+    ],
+    "meaning": "Gaussian derivative bound exact for nodewise certified eps; here eps double-precision diagnostic only. Relative to Bessel surrogate with same baseline, NOT true defective-chain peak.",
+    "continuous_enclosures": [
+      {
+        "radius": 0.05,
+        "eta1_continuous_majorant": 0.00018338006605943355,
+        "eta2_continuous_majorant": 0.00024269518321464673,
+        "kappa_continuous_lower": 0.028214978124864825,
+        "third_derivative_continuous_majorant": 0.11188044290309876,
+        "left_current_sign_margin": 0.001305545301307832,
+        "right_current_sign_margin": 0.0012537819408936163,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.006555777604636776
+      },
+      {
+        "radius": 0.1,
+        "eta1_continuous_majorant": 0.0002055388298623539,
+        "eta2_continuous_majorant": 0.00028651423519715816,
+        "kappa_continuous_lower": 0.02715014723159769,
+        "third_derivative_continuous_majorant": 0.1390465491604891,
+        "left_current_sign_margin": 0.0028232479963529048,
+        "right_current_sign_margin": 0.0026162913471184483,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.007651192595204607
+      },
+      {
+        "radius": 0.2,
+        "eta1_continuous_majorant": 0.00025934755821169545,
+        "eta2_continuous_majorant": 0.0004069717727248468,
+        "kappa_continuous_lower": 0.024974124404057163,
+        "third_derivative_continuous_majorant": 0.22097840173625677,
+        "left_current_sign_margin": 0.005998197881961945,
+        "right_current_sign_margin": 0.0051719181180472,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.010556679567372013
+      },
+      {
+        "radius": 0.4,
+        "eta1_continuous_majorant": 0.0004214236714841276,
+        "eta2_continuous_majorant": 0.000889604081656214,
+        "kappa_continuous_lower": 0.02040345240242093,
+        "third_derivative_continuous_majorant": 0.6315251265604054,
+        "left_current_sign_margin": 0.012858559851622315,
+        "right_current_sign_margin": 0.009578072318670321,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.021596133400078245
+      },
+      {
+        "radius": 0.8,
+        "eta1_continuous_majorant": 0.0012087309385220954,
+        "eta2_continuous_majorant": 0.00571582352367833,
+        "kappa_continuous_lower": 0.005585216044924639,
+        "third_derivative_continuous_majorant": 8.21010643405685,
+        "left_current_sign_margin": 0.028065053599819822,
+        "right_current_sign_margin": 0.015329746840637922,
+        "conditional_isolated_peak": false,
+        "conditional_peak_shift_upper": null
+      }
+    ],
+    "first_peak_check_from_t19_2": {
+      "proved_positive_conditional": true,
+      "accepted_intervals": 20,
+      "worst_accepted_margin": 0.00022431967060764567,
+      "failed_intervals": []
+    },
+    "max_observed_violation_with_numerical_floor": -2.678865055500747e-12,
+    "floating_slack_added_to_all_capacity_nodes": 5e-12
+  },
+  {
+    "defect": [
+      0.35,
+      1.2
+    ],
+    "n_samples": 1441,
+    "dt": 0.025,
+    "peak_airy": 27.304993212368615,
+    "peak_bessel": 27.305133598347282,
+    "peak_shift_bessel_minus_airy": 0.00014038597866772307,
+    "max_capacity_gap": 1.930888992962565e-05,
+    "max_capacity_bound_all_samples": 0.0018288587938516281,
+    "max_capacity_bound_20_to_34": 0.0015109503573721495,
+    "max_occupation_amplitude_gap_20_to_34": 0.00012596248777471003,
+    "min_singular_lower_all": 0.9750286454198781,
+    "bound_violations": 23,
+    "near_peak_diagnostics": [
+      {
+        "radius": 0.05,
+        "eta1_grid": 0.00021090857568637508,
+        "eta2_grid": 0.00012698230374016427,
+        "kappa_grid": 0.009548217946815396,
+        "left_current_minus_eta1": 0.0002930105975892871,
+        "right_current_minus_eta1": 0.00027522681076893853,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.02238650891206574
+      },
+      {
+        "radius": 0.1,
+        "eta1_grid": 0.0002135590206465857,
+        "eta2_grid": 0.00012831528757400315,
+        "kappa_grid": 0.009207946857956197,
+        "left_current_minus_eta1": 0.0008125472586895349,
+        "right_current_minus_eta1": 0.0007414361527404232,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.0235206703037617
+      },
+      {
+        "radius": 0.2,
+        "eta1_grid": 0.00021887451406289973,
+        "eta2_grid": 0.00013102276633179376,
+        "kappa_grid": 0.008560494208889238,
+        "left_current_minus_eta1": 0.0019082250696297362,
+        "right_current_minus_eta1": 0.0016241647277216121,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.02596539006679341
+      },
+      {
+        "radius": 0.4,
+        "eta1_grid": 0.00022953381840816348,
+        "eta2_grid": 0.0001366195188359139,
+        "kappa_grid": 0.007410601874554065,
+        "left_current_minus_eta1": 0.004337370097440444,
+        "right_current_minus_eta1": 0.0032072371033561543,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.031555454382938476
+      },
+      {
+        "radius": 0.8,
+        "eta1_grid": 0.0002507667886422752,
+        "eta2_grid": 0.00014861045884285596,
+        "kappa_grid": 0.005779577504838411,
+        "left_current_minus_eta1": 0.010217473742134454,
+        "right_current_minus_eta1": 0.005792348749394782,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.044533520902170304
+      }
+    ],
+    "meaning": "Gaussian derivative bound exact for nodewise certified eps; here eps double-precision diagnostic only. Relative to Bessel surrogate with same baseline, NOT true defective-chain peak.",
+    "continuous_enclosures": [
+      {
+        "radius": 0.05,
+        "eta1_continuous_majorant": 0.0002329485954575074,
+        "eta2_continuous_majorant": 0.00030463323263123324,
+        "kappa_continuous_lower": 0.009545956535029074,
+        "third_derivative_continuous_majorant": 0.045228235726454846,
+        "left_current_sign_margin": 0.0002709705778181548,
+        "right_current_sign_margin": 0.0002531867909978062,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.025207276905577405
+      },
+      {
+        "radius": 0.1,
+        "eta1_continuous_majorant": 0.0002608950220211714,
+        "eta2_continuous_majorant": 0.00035983536998808577,
+        "kappa_continuous_lower": 0.009202363840516847,
+        "third_derivative_continuous_majorant": 0.05583017439350112,
+        "left_current_sign_margin": 0.0007652112573149492,
+        "right_current_sign_margin": 0.0006941001513658375,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.02950457246371416
+      },
+      {
+        "radius": 0.2,
+        "eta1_continuous_majorant": 0.00032875291771285707,
+        "eta2_continuous_majorant": 0.0005116632797449132,
+        "kappa_continuous_lower": 0.00854298879276828,
+        "third_derivative_continuous_majorant": 0.08752708060479149,
+        "left_current_sign_margin": 0.0017983466659797788,
+        "right_current_sign_margin": 0.0015142863240716546,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.0409338305588238
+      },
+      {
+        "radius": 0.4,
+        "eta1_continuous_majorant": 0.0005331162350675618,
+        "eta2_continuous_majorant": 0.0011204621006467613,
+        "kappa_continuous_lower": 0.007313055846199046,
+        "third_derivative_continuous_majorant": 0.2438650708875472,
+        "left_current_sign_margin": 0.004033787680781046,
+        "right_current_sign_margin": 0.0029036546866967558,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.08608932815114226
+      },
+      {
+        "radius": 0.8,
+        "eta1_continuous_majorant": 0.0015249077914369512,
+        "eta2_continuous_majorant": 0.0072086610425700715,
+        "kappa_continuous_lower": 0.003315246112137236,
+        "third_derivative_continuous_majorant": 3.0804142408764656,
+        "left_current_sign_margin": 0.008943332739339779,
+        "right_current_sign_margin": 0.004518207746600105,
+        "conditional_isolated_peak": false,
+        "conditional_peak_shift_upper": null
+      }
+    ],
+    "first_peak_check_from_t19_2": {
+      "proved_positive_conditional": true,
+      "accepted_intervals": 23,
+      "worst_accepted_margin": 5.0655986559738886e-05,
+      "failed_intervals": []
+    },
+    "max_observed_violation_with_numerical_floor": -2.7131055622292512e-12,
+    "floating_slack_added_to_all_capacity_nodes": 5e-12
+  },
+  {
+    "defect": [
+      0.5,
+      0.2
+    ],
+    "n_samples": 1441,
+    "dt": 0.025,
+    "peak_airy": 26.479821014643935,
+    "peak_bessel": 26.479825777459084,
+    "peak_shift_bessel_minus_airy": 4.762815148495747e-06,
+    "max_capacity_gap": 8.567422601579722e-06,
+    "max_capacity_bound_all_samples": 0.001809188871542185,
+    "max_capacity_bound_20_to_34": 0.0015092378273832336,
+    "max_occupation_amplitude_gap_20_to_34": 0.00012596248777471003,
+    "min_singular_lower_all": 0.9856293836880403,
+    "bound_violations": 14,
+    "near_peak_diagnostics": [
+      {
+        "radius": 0.05,
+        "eta1_grid": 0.00016893095272720873,
+        "eta2_grid": 0.00010627392810691091,
+        "kappa_grid": 0.07692452586195751,
+        "left_current_minus_eta1": 0.0036974967911186612,
+        "right_current_minus_eta1": 0.0036845517772240797,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.002199099152538355
+      },
+      {
+        "radius": 0.1,
+        "eta1_grid": 0.0001713329943741742,
+        "eta2_grid": 0.00010749042458842657,
+        "kappa_grid": 0.07659515115481381,
+        "left_current_minus_eta1": 0.007572114437006361,
+        "right_current_minus_eta1": 0.007520336981832763,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.002240008293343832
+      },
+      {
+        "radius": 0.2,
+        "eta1_grid": 0.00017620430422576322,
+        "eta2_grid": 0.00010992841431084175,
+        "kappa_grid": 0.07579637371890481,
+        "left_current_minus_eta1": 0.015343659766129482,
+        "right_current_minus_eta1": 0.015136591622853655,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.00232808270380044
+      },
+      {
+        "radius": 0.4,
+        "eta1_grid": 0.00018619185710612093,
+        "eta2_grid": 0.000114841879855208,
+        "kappa_grid": 0.07364948112537839,
+        "left_current_minus_eta1": 0.030910821150307754,
+        "right_current_minus_eta1": 0.03008321995566275,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.002532029245216653
+      },
+      {
+        "radius": 0.8,
+        "eta1_grid": 0.00020691944314520439,
+        "eta2_grid": 0.0001249847936864463,
+        "kappa_grid": 0.06731510121943196,
+        "left_current_minus_eta1": 0.06164031685970625,
+        "right_current_minus_eta1": 0.058340945044994354,
+        "local_conditions_on_grid": true,
+        "root_shift_grid_bound": 0.003079611320124431
+      }
+    ],
+    "meaning": "Gaussian derivative bound exact for nodewise certified eps; here eps double-precision diagnostic only. Relative to Bessel surrogate with same baseline, NOT true defective-chain peak.",
+    "continuous_enclosures": [
+      {
+        "radius": 0.05,
+        "eta1_continuous_majorant": 0.00018643795541789388,
+        "eta2_continuous_majorant": 0.0002465554643697522,
+        "kappa_continuous_lower": 0.07691264453791292,
+        "third_derivative_continuous_majorant": 0.23762648089162158,
+        "left_current_sign_margin": 0.003679989788427976,
+        "right_current_sign_margin": 0.0036670447745333944,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.0024318177393795356
+      },
+      {
+        "radius": 0.1,
+        "eta1_continuous_majorant": 0.00020895680051841175,
+        "eta2_continuous_majorant": 0.00029108222462002225,
+        "kappa_continuous_lower": 0.0765657916233471,
+        "third_derivative_continuous_majorant": 0.29359531466704,
+        "left_current_sign_margin": 0.007534490630862123,
+        "right_current_sign_margin": 0.007482713175688526,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.0027395292904504854
+      },
+      {
+        "radius": 0.2,
+        "eta1_continuous_majorant": 0.0002636396575697391,
+        "eta2_continuous_majorant": 0.0004134902787391633,
+        "kappa_continuous_lower": 0.07570413916178981,
+        "third_derivative_continuous_majorant": 0.46117278557504077,
+        "left_current_sign_margin": 0.015256224412785506,
+        "right_current_sign_margin": 0.01504915626950968,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.0035016255203119836
+      },
+      {
+        "radius": 0.4,
+        "eta1_continuous_majorant": 0.00042834722335023716,
+        "eta2_continuous_majorant": 0.0009039697721362234,
+        "kappa_continuous_lower": 0.07313369680581852,
+        "third_derivative_continuous_majorant": 1.2894607988996631,
+        "left_current_sign_margin": 0.030668665784063638,
+        "right_current_sign_margin": 0.029841064589418636,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.00593034531544733
+      },
+      {
+        "radius": 0.8,
+        "eta1_continuous_majorant": 0.001228388604546587,
+        "eta2_continuous_majorant": 0.005808784938833909,
+        "kappa_continuous_lower": 0.054250264636571725,
+        "third_derivative_continuous_majorant": 16.331045728575283,
+        "left_current_sign_margin": 0.06061884769830486,
+        "right_current_sign_margin": 0.057319475883592964,
+        "conditional_isolated_peak": true,
+        "conditional_peak_shift_upper": 0.02535819740048015
+      }
+    ],
+    "first_peak_check_from_t19_2": {
+      "proved_positive_conditional": true,
+      "accepted_intervals": 20,
+      "worst_accepted_margin": 0.001880882764812772,
+      "failed_intervals": []
+    },
+    "max_observed_violation_with_numerical_floor": -2.739412098449756e-12,
+    "floating_slack_added_to_all_capacity_nodes": 5e-12
+  }
+]
