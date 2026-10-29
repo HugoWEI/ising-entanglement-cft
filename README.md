@@ -606,3 +606,42 @@ Run `python scripts/benchmark_walk_phase_response.py`.
 defect, not a uniform large-phase or closed-form few-return-path
 law. The Chebyshev truncation bound does not itself certify
 errors in the susceptibility or peak derivatives.
+
+
+## Second-order initial-coherence phase control of first revivals
+
+We now derived the **exact second derivative** of modular capacity
+with respect to the initial bound–continuum phase using the
+divided-difference spectral matrix-function formula, and an explicit
+second-order shift of a nondegenerate first-revival peak:
+
+`t_peak(theta0+eta)=t0+a*eta+b*eta²+O(eta³)`, where
+`a=-C_ttheta/C_tt` and
+`b=-(C_ttt*a²/2+C_tttheta*a+C_tthetatheta/2)/C_tt`.
+
+The quadratic *capacity curve* can also be maximized locally,
+which is numerically more stable than estimating high-order
+temporal derivatives.
+
+This is coupled to the **no-Hamiltonian-diagonalization**
+pole-exact Chebyshev walk solver. A successful focused
+[40-test validation run](https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40837992169)
+shows mean absolute individual peak-time error reductions
+of **97.4%** at phase ±0.08 rad, **89.6%** at ±0.30 rad,
+and **51.7%** at ±0.60 rad across four fixed configurations,
+with explicit negative controls for larger shifts.
+
+- [Derivation, exact spectral curvature, error data and caveats](docs/second_order_phase_peak.md)
+- [Second phase derivative and local peak formulas](src/bound_phase_curvature.py)
+- [Scattering-only prediction](src/walk_phase_response.py)
+- [Independent curvature tests](tests/test_bound_phase_curvature.py)
+- [No-diagonalization tests](tests/test_walk_phase_curvature.py)
+- [Held-out scattering-walk phase-peak benchmark](scripts/benchmark_walk_phase_curvature.py)
+
+Run `python scripts/benchmark_walk_phase_curvature.py`.
+
+**Scope:** This remains a local Taylor/implicit-function result built
+from standard mathematical physics—not an original universal
+few-scattering-path revival law. Chebyshev orbital truncation
+bounds do not automatically certify the capacity's phase
+derivatives or continuous-time peak positions.
