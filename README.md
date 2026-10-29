@@ -576,3 +576,33 @@ Run `python scripts/benchmark_bound_phase_peak_response.py`.
 implicit-function framework applied to a particular quantum
 information observable, not yet a novel universal capacity-revival
 law. The response uses the exact band covariance at one phase.
+
+
+### No-diagonalization phase-response predictor (validated)
+
+The phase-susceptibility/peak-shift formula is now coupled to the
+pole-exact Chebyshev walking solver, so its **prediction** uses
+only the clean-chain two-site scattering equation and coherent
+finite walks, without diagonalizing either symmetric or asymmetric
+full-chain Hamiltonians.
+
+The [focused independent validation](https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40791880468)
+passed **24 tests** and both numerical benchmark stages.
+
+For ±0.1 radians of initial bound–continuum phase, its
+predicted vs exact first-peak time contrasts are:
+L=48, (1.2,.35): -0.105628 vs -0.106108;
+L=64, (1.2,.35): +0.166652 vs +0.166270.
+The sign reversal is important and model-dependent.
+
+- [Rigorous scope, formulas and complete test results](docs/phase_coherence_peak_response.md)
+- [Scattering-pole + finite-walk phase-response solver](src/walk_phase_response.py)
+- [Independent tests without full-chain eigendecomposition](tests/test_walk_phase_response.py)
+- [Numerical held-out peak benchmark](scripts/benchmark_walk_phase_response.py)
+
+Run `python scripts/benchmark_walk_phase_response.py`.
+
+**Limit:** This is a local phase derivative at a fixed strong
+defect, not a uniform large-phase or closed-form few-return-path
+law. The Chebyshev truncation bound does not itself certify
+errors in the susceptibility or peak derivatives.
