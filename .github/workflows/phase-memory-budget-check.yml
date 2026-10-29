@@ -1,0 +1,44 @@
+name: Phase memory conservation and capacity bounds
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/phase_memory_budget.py'
+      - 'tests/test_phase_memory_budget.py'
+      - 'scripts/benchmark_phase_memory_budget.py'
+      - '.github/workflows/phase-memory-budget-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  phase-budget:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Validate exact global norms and subsystem capacity bounds
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: python -m pytest -q tests/test_phase_memory_budget.py
+      - name: Benchmark phase-memory bounds across initial preparations
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: python scripts/benchmark_phase_memory_budget.py
+      - name: Export results
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase-memory-budget
+          path: |
+            results/phase_memory_budget.csv
+            results/phase_memory_time_samples.csv
+            figures/phase_memory_occupation_and_peaks.png
+            figures/phase_memory_capacity_bounds.png
+          if-no-files-found: error
