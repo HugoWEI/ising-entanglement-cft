@@ -1,0 +1,30 @@
+[
+  {
+    "defect": [
+      1.2,
+      0.35
+    ],
+    "Airy_peak": 26.42140246233998,
+    "Bessel_peak": 26.421410455704727,
+    "source_only_Hermite_witness_peak": 26.422680422702033,
+    "Airy_to_Bessel_shift": 7.993364746994303e-06,
+    "Bessel_to_witness_shift": 0.0012699669973059713,
+    "Airy_to_witness_total_shift": 0.0012779603620529656,
+    "fraction_abs_peak_gap_remaining_after_Bessel": 0.9937452170001944,
+    "interpretation": "Benchmark decomposition only; Hermite witness supplies residual control but ordinary floating point here. Does not certify either actual peak."
+  },
+  {
+    "defect": [
+      0.35,
+      1.2
+    ],
+    "Airy_peak": 27.304993212368583,
+    "Bessel_peak": 27.305133598347247,
+    "source_only_Hermite_witness_peak": 27.311954782136308,
+    "Airy_to_Bessel_shift": 0.00014038597866417035,
+    "Bessel_to_witness_shift": 0.006821183789060825,
+    "Airy_to_witness_total_shift": 0.0069615697677249955,
+    "fraction_abs_peak_gap_remaining_after_Bessel": 0.979834148999695,
+    "interpretation": "Benchmark decomposition only; Hermite witness supplies residual control but ordinary floating point here. Does not certify either actual peak."
+  }
+]
