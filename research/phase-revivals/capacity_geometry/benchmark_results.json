@@ -1,0 +1,27 @@
+{
+  "model": "L48 staggered-mass 2.5 two-site onsite defect",
+  "measurement": "Bessel vs leading Olver Airy first-return, at fixed t, with common direct/reflection baseline",
+  "status": "conditional floating-point plus prior interval-assisted wavefront upper bound; not a certified peak interval",
+  "pairs": [
+    {
+      "u": 1.2,
+      "v": 0.35,
+      "t": 26.4,
+      "wavefront_fro_upper": 0.00004406911195593539,
+      "sigma_path_lower_estimate": 0.9995041134185406,
+      "geometric_capacity_upper": 0.0005270419210394911,
+      "old_capacity_upper": 0.01905241115239824,
+      "observed_diff": 0.000005287891247540699
+    },
+    {
+      "u": 0.35,
+      "v": 1.2,
+      "t": 27.3,
+      "wavefront_fro_upper": 0.000051964907918855975,
+      "sigma_path_lower_estimate": 0.9995466136882641,
+      "geometric_capacity_upper": 0.0006214447981527029,
+      "old_capacity_upper": 0.02348282625513042,
+      "observed_diff": 0.0000019350041569055065
+    }
+  ]
+}
