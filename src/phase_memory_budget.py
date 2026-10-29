@@ -160,3 +160,44 @@ def capacity_difference_bounds(beta,alpha,phase_difference,
         output["capacity_gap_upper"]=capacity_spectral_gap_bound(
             spectral_gap,budget["subsystem_trace_upper"])
     return output
+
+
+
+def pure_slater_phase_overlap(beta,phase_difference):
+    """Exact many-body overlap for bound-number phase gates.
+
+    The many-body unitary is exp(i theta n_b) with n_b=b†b in {0,1}.
+    For ANY initial pure Slater determinant with initial occupation beta,
+      <Psi_theta|Psi_phi> = 1-beta + beta*exp(i*(phi-theta)).
+    This overlap is conserved under any common subsequent Hamiltonian
+    evolution; if the generator commutes with h it also preserves
+    each spectral occupation and moment.
+
+    We return the complex overlap in the convention phi-theta.
+    """
+    beta=float(beta)
+    diff=float(phase_difference)
+    if not np.isfinite(beta) or beta < -1e-10 or beta >1+1e-10 or (
+            not np.isfinite(diff)):
+        raise ValueError("invalid beta or phase difference")
+    beta=float(np.clip(beta,0,1))
+    return complex(1-beta+beta*np.exp(1j*diff))
+
+
+def pure_slater_phase_fidelity(beta,phase_difference):
+    """Exact |<Psi_theta|Psi_phi>|^2=1-4 beta(1-beta) sin^2(d/2)."""
+    overlap=pure_slater_phase_overlap(beta,phase_difference)
+    return float(abs(overlap)**2)
+
+
+def bound_number_phase_quantum_fisher(beta):
+    """Pure-state phase QFI F_Q=4 Var(n_b)=4 beta(1-beta).
+
+    This is standard pure-state quantum metrology, not a new
+    capacity-revival law. It gives an operational interpretation
+    of the conserved phase-coherence budget, F_Q=4*B^2.
+    """
+    beta=float(beta)
+    if not np.isfinite(beta) or not 0<=beta<=1:
+        raise ValueError("invalid occupation")
+    return float(4*beta*(1-beta))
