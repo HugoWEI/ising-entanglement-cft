@@ -265,3 +265,63 @@ Reproduce:
     git pull origin main
     python -m pytest -q tests/test_phase_memory_budget.py
     python scripts/benchmark_phase_memory_budget.py
+
+
+## 7. Independent validation: first numerical results
+
+The focused GitHub Actions workflow PASSED, including 18
+independent proof/numerical tests and all preselected preparation
+sweeps:
+https://github.com/HugoWEI/ising-entanglement-cft/actions/runs/40839476308
+
+The tests cover system sizes L=24,48,64, onsite defects
+(1.2,.35) and (.7,1.4), initial staggered masses
+m=.5,2.5,8, and four phase preparations
+theta=0, pi/2, pi, 3pi/2.
+
+### A numerical sign of a preparation-controlled coherence budget
+
+At L=48, for the first defect (u,v)=(1.2,.35):
+
+| initial staggered mass | beta | sqrt[beta(1-beta)] | range of first-peak times over phases |
+|---:|---:|---:|---:|
+| .5 | .08363 | .27683 | 0.0 on dt=.4 time grid |
+| 2.5 | .31442 | .46428 | 2.4 |
+| 8 | .50065 | .50000 | 2.4 |
+
+For the second defect (u,v)=(.7,1.4):
+
+| initial mass | beta | coherence budget | phase-peak time range |
+|---:|---:|---:|---:|
+| .5 | .00956 | .09728 | .4 |
+| 2.5 | .13969 | .34666 | .4 |
+| 8 | .29507 | .45607 | .8 |
+
+These observations highlight a necessary-but-not-sufficient
+role for initial coherence:
+1. The bound occupation and its coherence budget are controlled
+   by the INITIAL state, even while the post-quench defect is fixed.
+2. Greater coherence *can* enable larger revival timing responses.
+3. The observed response is NOT determined by beta alone: the
+   second defect has weaker phase sensitivity at comparable
+   coherence, and finite-sampling peak quantization matters.
+
+**Do not infer that an observed 0.0 peak-time span on dt=.4 grid
+means exactly zero continuous-time phase sensitivity.** This
+experiment uses the original operational broad-peak finder and
+does not resolve smaller sub-grid shifts. For that use the
+analytic phase susceptibility and parabolic interpolation from
+docs/phase_coherence_peak_response.md.
+
+The independent output also checked the stronger trace-distance
+inequality at three times per configuration. The global
+one-body covariance distinguishability remains constant
+at all tested times, even though its subsystem manifestation
+and modular-capacity response vary.
+
+**Assessment:** A rigorous *conserved phase-memory resource*
+has now been isolated and falsification-tested. It provides
+a quantitative constraint and a useful physical control.
+Its algebra is established and its peak-timing explanatory
+power remains incomplete: predicting the *spatial/time
+distribution* of this coherence is the harder physics task.
