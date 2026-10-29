@@ -84,6 +84,7 @@ def main():
                         bound_occupation_beta=beta,
                         bound_subsystem_weight_alpha=alpha,
                         coherence_amplitude=np.sqrt(beta*(1-beta)),
+                        pure_state_bound_phase_QFI=4*beta*(1-beta),
                         first_broad_peak_time=peak_t,
                         first_broad_peak_height=peak_h,
                         peak_time_shift_vs_theta_zero=peak_t-initial_peak,
