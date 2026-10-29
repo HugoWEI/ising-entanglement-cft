@@ -1,0 +1,69 @@
+{
+  "method": "source-only Hermite, conditional local certificate",
+  "cases": [
+    {
+      "L": 48,
+      "T": 40.0,
+      "dt": 0.00625,
+      "pair": [
+        1.2,
+        0.35
+      ],
+      "smoother": "normalized discrete Gaussian kernel",
+      "sigma": 2.0,
+      "peak": 26.422654197314138,
+      "source_amplitude_error_upper": 9.536296992912178e-09,
+      "projector_error_upper": 3.814518797164871e-08,
+      "capacity_sample_error_upper": 0.0004917801745040938,
+      "source_node_residuals": {
+        "node_r": 5.041139717705096e-16,
+        "node_dr": 8.432970054421844e-16
+      },
+      "peak_bound": {
+        "radius": 0.03,
+        "eta1_uniform": 0.00021011144274432443,
+        "eta2_uniform": 0.00026763519301764777,
+        "third_derivative_uniform": 0.10278620795980482,
+        "mean_offset_uniform": 0.007961122564133147,
+        "kappa_uniform_lower": 0.028570675777367813,
+        "left_margin": 0.0006751345913911562,
+        "right_margin": 0.0006564975742852395,
+        "robust_unique_root_by_analytic_majorants": true,
+        "radius_upper": 0.007423635001975834
+      },
+      "numerical_certification": "conditional exact-arithmetic; floating-point evaluation, not interval arithmetic"
+    },
+    {
+      "L": 48,
+      "T": 40.0,
+      "dt": 0.00625,
+      "pair": [
+        0.35,
+        1.2
+      ],
+      "smoother": "normalized discrete Gaussian kernel",
+      "sigma": 2.0,
+      "peak": 27.31153398618019,
+      "source_amplitude_error_upper": 7.982778731247709e-09,
+      "projector_error_upper": 3.1931114924990835e-08,
+      "capacity_sample_error_upper": 0.0004206479998761483,
+      "source_node_residuals": {
+        "node_r": 4.501770589016393e-16,
+        "node_dr": 8.051396659895734e-16
+      },
+      "peak_bound": {
+        "radius": 0.03,
+        "eta1_uniform": 0.00017972037064169355,
+        "eta2_uniform": 0.00022892383776928414,
+        "third_derivative_uniform": 0.0415667853769505,
+        "mean_offset_uniform": 0.007961122726938155,
+        "kappa_uniform_lower": 0.009619050277633422,
+        "left_margin": 0.00011839449833052804,
+        "right_margin": 0.00011203904256494669,
+        "robust_unique_root_by_analytic_majorants": true,
+        "radius_upper": 0.019139291871376956
+      },
+      "numerical_certification": "conditional exact-arithmetic; floating-point evaluation, not interval arithmetic"
+    }
+  ]
+}

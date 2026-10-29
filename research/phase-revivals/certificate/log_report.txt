@@ -1,0 +1,84 @@
+{
+  "pair": [
+    1.2,
+    0.35
+  ],
+  "airy_peak": 26.42140246234294,
+  "chosen_radius": {
+    "R": 0.06,
+    "eta1": 0.00011821114100681925,
+    "eta2": 0.00016470662208401324,
+    "kappa": 0.028003287581695076,
+    "leftmargin": 0.0016746397697052385,
+    "rightmargin": 0.001600105642395399,
+    "good": true,
+    "radius": 0.004246306274674095
+  },
+  "earlier_derivative_positive": {
+    "proved_positive_conditional": true,
+    "accepted_intervals": 20,
+    "worst_accepted_margin": 0.0005915980648696971,
+    "failed_intervals": []
+  },
+  "prominence_witnesses": [
+    {
+      "t": 26.42140246234294,
+      "airy_smooth": 7.459012870025631,
+      "error_upper": 0.00031011135282434685
+    },
+    {
+      "t": 19.27140246234294,
+      "airy_smooth": 6.521288731616968,
+      "error_upper": 0.00013239405527911137
+    },
+    {
+      "t": 33.57140246234294,
+      "airy_smooth": 7.236401413441745,
+      "error_upper": 0.0007354419634984843
+    }
+  ],
+  "prominence_lower": 0.2215659032675629,
+  "conditional_first_prominent": true
+}
+{
+  "pair": [
+    0.35,
+    1.2
+  ],
+  "airy_peak": 27.304993212354123,
+  "chosen_radius": {
+    "R": 0.06,
+    "eta1": 9.866988928076573e-05,
+    "eta2": 0.00013731908296319052,
+    "kappa": 0.009476487903979057,
+    "leftmargin": 0.0005082102034466435,
+    "rightmargin": 0.0004826028201344987,
+    "good": true,
+    "radius": 0.010565168182711245
+  },
+  "earlier_derivative_positive": {
+    "proved_positive_conditional": true,
+    "accepted_intervals": 23,
+    "worst_accepted_margin": 0.0002780552683263782,
+    "failed_intervals": []
+  },
+  "prominence_witnesses": [
+    {
+      "t": 27.304993212354123,
+      "airy_smooth": 7.554672805897642,
+      "error_upper": 0.00022965203584289655
+    },
+    {
+      "t": 20.15499321235412,
+      "airy_smooth": 6.9068767229176045,
+      "error_upper": 0.00011454048491952231
+    },
+    {
+      "t": 34.454993212354125,
+      "airy_smooth": 7.369745161699404,
+      "error_upper": 0.002209982000869472
+    }
+  ],
+  "prominence_lower": 0.18248801016152533,
+  "conditional_first_prominent": true
+}

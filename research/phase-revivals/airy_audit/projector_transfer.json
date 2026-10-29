@@ -1,0 +1,44 @@
+[
+  {
+    "pair": [
+      1.2,
+      0.35
+    ],
+    "L": 48,
+    "time": 26.400000000000002,
+    "sigma_bessel": 0.9995481956188049,
+    "sigma_airy": 0.9995481825304966,
+    "pointwise_wavefront_upper": 4.406911195593539e-05,
+    "measured_occupied_amplitude_difference": 2.3264067680942996e-05,
+    "measured_projector_difference": 1.9530378975275377e-05,
+    "conditional_projector_upper": 8.817806372443763e-05,
+    "measured_capacity_difference": 5.287891153393787e-06,
+    "conditional_capacity_upper": 0.01905241115239824,
+    "signed_capacity_difference": -5.287891153393787e-06,
+    "trace_response_integral": -5.287891234391098e-06,
+    "trace_response_refinement_difference": 1.4399560103323106e-20,
+    "max_abs_trace_response_integrand": 5.288046381076976e-06,
+    "warning": "The singular values and Volterra baseline are evaluated in ordinary floating point; not a formal certificate."
+  },
+  {
+    "pair": [
+      0.35,
+      1.2
+    ],
+    "L": 48,
+    "time": 27.3,
+    "sigma_bessel": 0.9995986549619538,
+    "sigma_airy": 0.999598578596183,
+    "pointwise_wavefront_upper": 5.1964907918855975e-05,
+    "measured_occupied_amplitude_difference": 2.4767190989867285e-05,
+    "measured_projector_difference": 2.258855292710899e-05,
+    "conditional_projector_upper": 0.00010397154827264287,
+    "measured_capacity_difference": 1.935004151576436e-06,
+    "conditional_capacity_upper": 0.02348282625513042,
+    "signed_capacity_difference": -1.935004151576436e-06,
+    "trace_response_integral": -1.9350037559687646e-06,
+    "trace_response_refinement_difference": 2.371692252312041e-20,
+    "max_abs_trace_response_integrand": 1.9350059342141386e-06,
+    "warning": "The singular values and Volterra baseline are evaluated in ordinary floating point; not a formal certificate."
+  }
+]

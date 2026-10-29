@@ -1,4 +1,12 @@
-# Entanglement across a defect in the critical Ising chain
+# Quantum entanglement revivals
+
+Research portfolio on phase-resolved entanglement and modular-capacity revivals in finite free-fermion chains: coherent scattering, boundary-return wavefronts, Airy approximations, and numerical error analysis.
+
+**Current research:** [Phase-revival research modules](research/phase-revivals/README.md). The latest numerical first-peak enclosures are *conditional on exact evaluation of numerical inputs*, not outward-rounded, machine-certified intervals; no novel physics theorem is claimed.
+
+---
+
+## Original Ising-chain research and earlier milestones
 
 **Status: work in progress / research reproduction.** This repository studies bipartite ground-state entanglement in an open transverse-field Ising chain with a modified central bond. It is an independent learning-and-research project, **not** a peer-reviewed publication or a claim to have discovered defect-dependent entanglement scaling.
 

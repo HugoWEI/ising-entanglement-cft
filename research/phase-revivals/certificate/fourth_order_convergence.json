@@ -1,0 +1,13 @@
+{
+  "scope": "L=48, T=30, m=2.5; all errors in operator norm; estimates evaluated with ordinary floating point",
+  "steps": [0.2, 0.1, 0.05, 0.025, 0.0125, 0.00625],
+  "forward": {
+    "source_majorant": [0.00949312162, 0.000525040067, 0.0000308664513, 0.00000187108430, 0.0000001151714887, 0.00000000714353675],
+    "measured_error_from_exact_hamiltonian": [0.0008214158, 0.000051701, 0.00000323698, 0.00000020239994, 0.0000000126513853, 0.000000000790741186]
+  },
+  "reversed": {
+    "source_majorant": [0.00775675227, 0.000434487416, 0.0000257077271, 0.00000156338909, 0.0000000963864908, 0.00000000598319078],
+    "measured_error_from_exact_hamiltonian": [0.000530110, 0.0000333656, 0.000002089, 0.00000013062, 0.00000000816466, 0.000000000510318]
+  },
+  "provenance": "Computed by high_order_volterra.diagnostic and source-only majorant; exact-Hamiltonian errors are independent validation only"
+}

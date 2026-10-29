@@ -1,0 +1,72 @@
+[
+  {
+    "L": 48,
+    "time_rational": "26.4214",
+    "orders": [
+      51,
+      145
+    ],
+    "max_orderwise_diff_bound": 8.034394604091895e-06,
+    "matrix_frobenius_upper": 4.4292482745481246e-05,
+    "measured_matrix_operator_norm": 3.0700696230446756e-05,
+    "pointwise_only": true,
+    "interval_engine": "mpmath.iv, 110 decimal digits",
+    "note": "Assumes inclusion-preserving gamma, atan2, log and exp interval operations. Not a proof of time-uniform error."
+  },
+  {
+    "L": 48,
+    "time_rational": "27.3050",
+    "orders": [
+      51,
+      145
+    ],
+    "max_orderwise_diff_bound": 7.5097258127485335e-06,
+    "matrix_frobenius_upper": 5.200657435162909e-05,
+    "measured_matrix_operator_norm": 3.385658039458119e-05,
+    "pointwise_only": true,
+    "interval_engine": "mpmath.iv, 110 decimal digits",
+    "note": "Assumes inclusion-preserving gamma, atan2, log and exp interval operations. Not a proof of time-uniform error."
+  },
+  {
+    "L": 64,
+    "time_rational": "36.4766",
+    "orders": [
+      67,
+      193
+    ],
+    "max_orderwise_diff_bound": 9.642803292904005e-06,
+    "matrix_frobenius_upper": 4.443126277753264e-05,
+    "measured_matrix_operator_norm": 2.3538749495264108e-05,
+    "pointwise_only": true,
+    "interval_engine": "mpmath.iv, 110 decimal digits",
+    "note": "Assumes inclusion-preserving gamma, atan2, log and exp interval operations. Not a proof of time-uniform error."
+  },
+  {
+    "L": 64,
+    "time_rational": "37.0491",
+    "orders": [
+      67,
+      193
+    ],
+    "max_orderwise_diff_bound": 1.258621974097931e-05,
+    "matrix_frobenius_upper": 5.246463749533513e-05,
+    "measured_matrix_operator_norm": 2.892907861177829e-05,
+    "pointwise_only": true,
+    "interval_engine": "mpmath.iv, 110 decimal digits",
+    "note": "Assumes inclusion-preserving gamma, atan2, log and exp interval operations. Not a proof of time-uniform error."
+  },
+  {
+    "L": 80,
+    "time_rational": "45.0",
+    "orders": [
+      83,
+      241
+    ],
+    "max_orderwise_diff_bound": 8.082792435174073e-06,
+    "matrix_frobenius_upper": 3.641351185413097e-05,
+    "measured_matrix_operator_norm": 1.854916167947212e-05,
+    "pointwise_only": true,
+    "interval_engine": "mpmath.iv, 110 decimal digits",
+    "note": "Assumes inclusion-preserving gamma, atan2, log and exp interval operations. Not a proof of time-uniform error."
+  }
+]
