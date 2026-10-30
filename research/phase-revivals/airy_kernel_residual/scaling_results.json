@@ -1,0 +1,43 @@
+{
+  "units": "hopping time",
+  "sample_spacing": 0.1,
+  "method": "ordinary double precision trapezoid; not certified quadrature",
+  "data": [
+    {
+      "L": 48,
+      "t": 26.4,
+      "actual": 0.00003056587339086378,
+      "sampled_integral": 0.000047452791130039625
+    },
+    {
+      "L": 48,
+      "t": 30,
+      "actual": 0.00006494423457727963,
+      "sampled_integral": 0.00014728853573606044
+    },
+    {
+      "L": 64,
+      "t": 36.5,
+      "actual": 0.00002351681192026468,
+      "sampled_integral": 0.00006097350046181904
+    },
+    {
+      "L": 64,
+      "t": 40,
+      "actual": 0.00004965959971938439,
+      "sampled_integral": 0.00014902000815500055
+    },
+    {
+      "L": 80,
+      "t": 45,
+      "actual": 0.000018549173509330115,
+      "sampled_integral": 0.00005118380529135288
+    },
+    {
+      "L": 80,
+      "t": 50,
+      "actual": 0.00004776341634816183,
+      "sampled_integral": 0.000152026356851481
+    }
+  ]
+}
