@@ -1,0 +1,46 @@
+{
+  "L": 48,
+  "T": 30,
+  "h": 0.05,
+  "degree": 14,
+  "n_gauss": 12,
+  "status": "floating point diagnostics, not verified interval arithmetic",
+  "cases": [
+    {
+      "uv": [
+        1.2,
+        0.35
+      ],
+      "momentTail": 1.432349756069903e-27,
+      "gaussTail": 5.959890557262933e-58,
+      "maxElementDiff": 9.159971397020652e-15,
+      "speedup": 5.243052091830998,
+      "peak": 26.422677008245905,
+      "peakDiffGauss": 6.608047442568932e-13
+    },
+    {
+      "uv": [
+        0.35,
+        1.2
+      ],
+      "momentTail": 1.3907638783607592e-27,
+      "gaussTail": 3.933676790854855e-58,
+      "maxElementDiff": 8.758676379271593e-15,
+      "speedup": 4.464475673672789,
+      "peak": 27.311932364024358,
+      "peakDiffGauss": 1.2825296380469808e-12
+    },
+    {
+      "uv": [
+        0.5,
+        0.2
+      ],
+      "momentTail": 6.149505492560518e-28,
+      "gaussTail": 1.3378694540432681e-58,
+      "maxElementDiff": 9.073316878575753e-15,
+      "speedup": 5.091247145176495,
+      "peak": 26.479761445705233,
+      "peakDiffGauss": 1.4210854715202004e-13
+    }
+  ]
+}
