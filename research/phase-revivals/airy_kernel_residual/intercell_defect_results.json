@@ -1,0 +1,57 @@
+{
+  "status": "midpoint diagnostics, not rigorous upper envelopes",
+  "results": [
+    {
+      "L": 48,
+      "T": 30,
+      "dt": 0.2,
+      "pair": [
+        1.2,
+        0.35
+      ],
+      "max_midpoint_q": 0.00006761550719279707,
+      "midpoint_L1_estimate": 0.001956251414095132,
+      "induced_state_L1_estimate": 0.002347501696914158,
+      "max_nodal_q": 3.5370339511015943e-16
+    },
+    {
+      "L": 48,
+      "T": 30,
+      "dt": 0.2,
+      "pair": [
+        0.35,
+        1.2
+      ],
+      "max_midpoint_q": 0.00004399202121819826,
+      "midpoint_L1_estimate": 0.0012747586431234416,
+      "induced_state_L1_estimate": 0.0015297103717481298,
+      "max_nodal_q": 2.9305096762624316e-16
+    },
+    {
+      "L": 48,
+      "T": 30,
+      "dt": 0.1,
+      "pair": [
+        1.2,
+        0.35
+      ],
+      "max_midpoint_q": 0.000004247945447742821,
+      "midpoint_L1_estimate": 0.00012281781058762634,
+      "induced_state_L1_estimate": 0.0001473813727051516,
+      "max_nodal_q": 3.8132319166619864e-16
+    },
+    {
+      "L": 48,
+      "T": 30,
+      "dt": 0.1,
+      "pair": [
+        0.35,
+        1.2
+      ],
+      "max_midpoint_q": 0.000002761498411787021,
+      "midpoint_L1_estimate": 0.0000800276714250236,
+      "induced_state_L1_estimate": 0.00009603320571002831,
+      "max_nodal_q": 3.313767933681171e-16
+    }
+  ]
+}

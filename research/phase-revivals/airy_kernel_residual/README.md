@@ -45,3 +45,23 @@ Requires NumPy, SciPy and pytest:
 \`OPENBLAS_NUM_THREADS=1 python -m pytest -q test_airy_kernel_residual.py\`
 
 The four targeted mathematical/numerical checks passed locally. We do not claim new Bessel asymptotics or a novel form of Duhamel's formula. See [NIST DLMF §10.20](https://dlmf.nist.gov/10.20) and Capizzi–Eisler, SciPost Phys. 14, 070 (2023), for relevant established mathematics and coherent-defect revival physics.
+
+
+## Follow-up: fourth-order inter-node impurity residual
+
+A cubic-Hermite Volterra solution enforces \(q(t_j)=0\) at the grid nodes, but this does not control \(q\) between nodes. We evaluated \(q=B^\dagger F_Y-Y_{\mathrm{Hermite}}\) at *every cell midpoint*, with 12-point Gauss–Legendre integration over the preceding Hermite polynomials. The integrals are floating-point diagnostics, not certified interval bounds.
+
+For \(L=48,T=30\), the results are:
+
+| Defect | timestep | maximum \(\|q(t_{j+1/2})\|_2\) | midpoint estimate \(\|V\|\int \|q\|_2\) |
+|---|---:|---:|---:|
+| (1.20,0.35) | .20 | 6.76155e-5 | 2.34750e-3 |
+| (1.20,0.35) | .10 | 4.24795e-6 | 1.47381e-4 |
+| (0.35,1.20) | .20 | 4.39920e-5 | 1.52971e-3 |
+| (0.35,1.20) | .10 | 2.76150e-6 | 9.60332e-5 |
+
+Halving the timestep reduces the largest midpoint residual by a factor of approximately 15.9, consistent with fourth-order behavior. By comparison, the source-kernel term \(\int_0^{30}\|R_KQ\|_2\approx1.12056\cdot10^{-4}\). Thus, at timestep .1 the inter-node term is of comparable size, even though the *nodal residuals* are near \(10^{-16}\).
+
+**Limit:** midpoint quadrature is not an upper enclosure for every point inside a cell. A rigorous defective-chain error certificate still requires an interval-in-cell bound on \(q\), as well as validated residual integration.
+
+Run \`OPENBLAS_NUM_THREADS=1 python intercell_defect_audit.py\` from this directory. This optional benchmark uses the adjacent \`hermite_airy\` solver.
