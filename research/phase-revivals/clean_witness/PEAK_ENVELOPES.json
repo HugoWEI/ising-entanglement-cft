@@ -1,0 +1,56 @@
+[
+  {
+    "pair": [
+      1.2,
+      0.35
+    ],
+    "L": 48,
+    "T": 36,
+    "dt": 0.05,
+    "airy_drive_clean_recon_peak": 26.422677008245245,
+    "max_node_amplitude_bound": 2.8304204943438507e-05,
+    "max_node_capacity_bound": 0.0016575411568723654,
+    "local_radius_estimate": 0.017183341052823,
+    "min_curvature_margin_estimate": 0.01822175534602238,
+    "left_current_lower_estimate": 0.01671972339886586,
+    "right_current_upper_estimate": -0.011609701667319403,
+    "first_peak_certification": "not certified; meshes are not interval bounds",
+    "extrema_mesh_step": 0.002500000000001279
+  },
+  {
+    "pair": [
+      0.35,
+      1.2
+    ],
+    "L": 48,
+    "T": 36,
+    "dt": 0.05,
+    "airy_drive_clean_recon_peak": 27.311932364023075,
+    "max_node_amplitude_bound": 2.571332936942288e-05,
+    "max_node_capacity_bound": 0.0015058112872950022,
+    "local_radius_estimate": 0.04150456470881698,
+    "min_curvature_margin_estimate": 0.006687639614642292,
+    "left_current_lower_estimate": 0.0056009273523692634,
+    "right_current_upper_estimate": -0.0038402014345734507,
+    "first_peak_certification": "not certified; meshes are not interval bounds",
+    "extrema_mesh_step": 0.002500000000001279
+  },
+  {
+    "pair": [
+      0.5,
+      0.2
+    ],
+    "L": 48,
+    "T": 36,
+    "dt": 0.05,
+    "airy_drive_clean_recon_peak": 26.47976144570509,
+    "max_node_amplitude_bound": 8.615492998342399e-06,
+    "max_node_capacity_bound": 0.0005045276167370803,
+    "local_radius_estimate": 0.0010407469584504127,
+    "min_curvature_margin_estimate": 0.07226517387922936,
+    "left_current_lower_estimate": 0.038789115638772985,
+    "right_current_upper_estimate": -0.037493806645870806,
+    "first_peak_certification": "not certified; meshes are not interval bounds",
+    "extrema_mesh_step": 0.002500000000001279
+  }
+]

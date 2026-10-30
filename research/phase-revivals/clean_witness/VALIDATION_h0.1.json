@@ -1,0 +1,36 @@
+[
+  {
+    "L": 48,
+    "T": 30.0,
+    "dt": 0.1,
+    "defect": [
+      1.2,
+      0.35
+    ],
+    "conditional_bound_final": 0.000262971256109077,
+    "observed_max_node_error": 5.170099883895156e-05,
+    "observed_final_error": 5.170099883895156e-05,
+    "quadrature_8_vs_12_max_matrix_entry": 2.482534153247273e-16,
+    "max_nodal_q": 1.8076136857041667e-08,
+    "max_nodal_qprime": 2.540830976996108e-08,
+    "hermite_integral_component": 0.00021913029465536597,
+    "node_integral_component": 1.2418768864854913e-08
+  },
+  {
+    "L": 48,
+    "T": 30.0,
+    "dt": 0.1,
+    "defect": [
+      0.35,
+      1.2
+    ],
+    "conditional_bound_final": 0.0002259793880495499,
+    "observed_max_node_error": 3.336564873201966e-05,
+    "observed_final_error": 3.336564873201966e-05,
+    "quadrature_8_vs_12_max_matrix_entry": 1.7554167342883506e-16,
+    "max_nodal_q": 1.8076136183138783e-08,
+    "max_nodal_qprime": 2.5408308619105113e-08,
+    "hermite_integral_component": 0.00018830373793862358,
+    "node_integral_component": 1.2418769334658794e-08
+  }
+]
