@@ -1,0 +1,26 @@
+name: Airy kernel residual tests
+
+on:
+  push:
+    paths:
+      - 'research/phase-revivals/airy_kernel_residual/**'
+      - '.github/workflows/airy-kernel-residual-check.yml'
+  pull_request:
+    paths:
+      - 'research/phase-revivals/airy_kernel_residual/**'
+      - '.github/workflows/airy-kernel-residual-check.yml'
+  workflow_dispatch:
+
+jobs:
+  residual-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy scipy pytest
+      - name: Analytic-derivative and clean residual tests
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: python -m pytest -q research/phase-revivals/airy_kernel_residual/test_airy_kernel_residual.py
